@@ -17,13 +17,11 @@ const TopBar = () => {
         </button>
         </div>
     </div>
-    <div id='new'>
       {
         rigtBar ? (
           <Selector/>
         ) : null
       }
-    </div>
     </>
   )
 }

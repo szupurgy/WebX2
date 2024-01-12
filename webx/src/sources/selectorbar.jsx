@@ -3,7 +3,7 @@ import React from 'react'
 const Selector = () => {
   return (
     
-    <div className=' w-screen h-screen fixed overflow-visible text-right justify-end flex'>
+    <div className=' w-screen fixed h-screen bg-white bg-opacity-50 text-right justify-end flex md:hidden lg:hidden sm:hidden overflow-hidden'>
         <div className='bg-gray-300 justify-center text-center w-64'>
         <a href="#" className=''>Home</a>
         <hr />
