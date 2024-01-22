@@ -1,14 +1,25 @@
-import { useState } from 'react'
 import './App.css'
-import TopBar from './sources/topbar'
-import PopularItems from './sources/popular'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import HomePage from './pages/home'
+import NoPage from './pages/NoPage'
+import Belepes from './pages/login'
+import SignUp from './pages/singup'
+import Products from './pages/Termekek'
 
 function App() {
 
   return (
     <>
-      <TopBar />
-      <PopularItems />
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<HomePage />} />
+        <Route path='/home' element={<HomePage />} />
+        <Route path='/login' element={<Belepes />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/products' element={<Products />} />
+        <Route path='*' element={<NoPage />} />
+      </Routes>
+    </BrowserRouter>
     </>
   )
 }
