@@ -6,6 +6,68 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model user{
+  id Int @id @default(autoincrement())
+  vezeteknev String
+  keresztnev String
+  email String @unique
+  jelszo String
+  telszam String
+  szuldatum String
+
+  @@map("Felhasználók")
+}
+
+model termek{
+  id Int @id @default(autoincrement())
+  nev String
+  leírás String
+  ár Int
+
+  @@map("Termékek")
+}
+
+model cim{
+  id Int @id @default(autoincrement())
+  ország String
+  város String
+  utca String
+  házszám Int
+  irányítószám Int
+  
+  @@map("SzalCimek")
+}
+
+model Fmod{
+  id Int @id @default(autoincrement())
+  típus String
+
+  @@map("Fizetésimódok")
+}
+
+model Szmod{
+  id Int @id @default(autoincrement())
+  típus String
+
+    @@map("Szállításimódok")
+}
+
+model rendeles{
+  id Int @id @default(autoincrement())
+  datum String
+  TeljesAr Int
+
+  @@map("rendelések")
+}
+
+model megrendelttermek{
+  id Int @id @default(autoincrement())
+  mennyiseg Int
+  ár Int
+
+  @@map("Megrendelések")
 }
