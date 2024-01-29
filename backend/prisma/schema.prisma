@@ -11,62 +11,83 @@ datasource db {
 }
 
 model user {
-  id             Int    @id @default(autoincrement())
+  id             Int        @id @default(autoincrement())
   felhasznalonev String
-  email          String @unique
+  email          String     @unique
   jelszo         String
   telszam        String
   szuldatum      String
+  cim            cim[]
+  rendeles       rendeles[]
+  kosar          kosar[]
 
   @@map("Felhasznalok")
 }
 
 model termek {
-  id     Int    @id @default(autoincrement())
-  nev    String
-  leiras String
-  ar     Int
+  id       Int        @id @default(autoincrement())
+  nev      String
+  leiras   String
+  ar       Int
+  rendeles rendeles[]
+  kosar    kosar[]
 
   @@map("Termekek")
 }
 
 model cim {
-  id           Int    @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   orszag       String
   varos        String
   utca         String
   hazszam      Int
   iranyitoszam Int
+  felhasznalo  user       @relation(fields: [fid], references: [id])
+  fid          Int
+  rendeles     rendeles[]
 
   @@map("SzalCimek")
 }
 
 model Fmod {
-  id    Int    @id @default(autoincrement())
-  tipus String
+  id       Int        @id @default(autoincrement())
+  tipus    String
+  rendeles rendeles[]
 
   @@map("FizModok")
 }
 
 model Szmod {
-  id    Int    @id @default(autoincrement())
-  tipus String
+  id       Int        @id @default(autoincrement())
+  tipus    String
+  rendeles rendeles[]
 
   @@map("SzalModok")
 }
 
 model rendeles {
-  id       Int    @id @default(autoincrement())
-  datum    String
-  TeljesAr Int
+  id          Int      @id @default(autoincrement())
+  datum       DateTime @default(now())
+  Felhasznalo user     @relation(fields: [floID], references: [id])
+  floID       Int
+  Termek      termek   @relation(fields: [TmkID], references: [id])
+  TmkID       Int
+  Cim         cim      @relation(fields: [CimID], references: [id])
+  CimID       Int
+  FizMod      Fmod     @relation(fields: [fizID], references: [id])
+  fizID       Int
+  SzalMod     Szmod    @relation(fields: [SzalID], references: [id])
+  SzalID      Int
 
   @@map("Rendelesek")
 }
 
-model megrendelttermek {
-  id        Int @id @default(autoincrement())
-  mennyiseg Int
-  ar        Int
+model kosar {
+  id          Int    @id @default(autoincrement())
+  Felhasznalo user   @relation(fields: [floID], references: [id])
+  floID       Int
+  Termek      termek @relation(fields: [TmkID], references: [id])
+  TmkID       Int
 
-  @@map("RendeltTermekek")
+  @@map("Kosar")
 }
