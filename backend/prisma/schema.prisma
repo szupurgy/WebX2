@@ -11,15 +11,14 @@ datasource db {
 }
 
 model user {
-  id         Int    @id @default(autoincrement())
-  vezeteknev String
-  keresztnev String
-  email      String @unique
-  jelszo     String
-  telszam    String
-  szuldatum  String
+  id             Int    @id @default(autoincrement())
+  felhasznalonev String
+  email          String @unique
+  jelszo         String
+  telszam        String
+  szuldatum      String
 
-  @@map("Felhasználók")
+  @@map("Felhasznalok")
 }
 
 model termek {
@@ -28,7 +27,7 @@ model termek {
   leiras String
   ar     Int
 
-  @@map("Termékek")
+  @@map("Termekek")
 }
 
 model cim {
@@ -46,14 +45,14 @@ model Fmod {
   id    Int    @id @default(autoincrement())
   tipus String
 
-  @@map("Fizetésimódok")
+  @@map("FizModok")
 }
 
 model Szmod {
   id    Int    @id @default(autoincrement())
   tipus String
 
-  @@map("Szállításimódok")
+  @@map("SzalModok")
 }
 
 model rendeles {
@@ -61,7 +60,7 @@ model rendeles {
   datum    String
   TeljesAr Int
 
-  @@map("rendelések")
+  @@map("Rendelesek")
 }
 
 model megrendelttermek {
@@ -69,5 +68,5 @@ model megrendelttermek {
   mennyiseg Int
   ar        Int
 
-  @@map("Megrendelések")
+  @@map("RendeltTermekek")
 }
