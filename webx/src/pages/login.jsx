@@ -2,6 +2,7 @@ import React from 'react'
 import TopBar from '../components/topbar/topbar'
 
 const Belepes = () => {
+    
   return (
     <>
     <div className='w-screen h-screen justify-center items-center flex flex-col'>

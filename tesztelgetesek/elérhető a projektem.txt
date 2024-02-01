@@ -1,0 +1,14 @@
+https://github.com/szupurgy/WebX2
+
+
+-------------------------------------
+gyors dokumentáció:
+
+1. githubról le kell tölteni a kódot.
+2. behúzni egy visual studioba.
+3. nyitni 2 terminált, az egyikbe el navigálni a backendhez a másikba a webx-hez(cd backend, cd webx)
+4. mind a 2 terminálba az "npm i" parancsal hozható életre a projekt.
+5. elindítani egy xampp-ot, futtatni egy mysql-t.
+6. backenden a prisma miatt migrate dev szükséges lehet.
+7. a backend terminálon az "npm start" parancsal indítható el, még a webx a "npm run dev" parancsal.
+8. ezek után localhost:5173 megtalálható a szerver.

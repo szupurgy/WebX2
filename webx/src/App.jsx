@@ -5,6 +5,7 @@ import NoPage from './pages/NoPage'
 import Belepes from './pages/login'
 import SignUp from './pages/singup'
 import Products from './pages/Termekek'
+import TermekOldal from './pages/Product'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path='/login' element={<Belepes />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/products' element={<Products />} />
+        <Route path='/info' element={<TermekOldal />} />
         <Route path='*' element={<NoPage />} />
       </Routes>
     </BrowserRouter>

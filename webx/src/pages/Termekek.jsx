@@ -1,9 +1,10 @@
 import React from 'react'
 
-const Products = () => {
+const TermekekOldal = () => {
   return (
-    <div>Products</div>
+    <>
+    </>
   )
 }
 
-export default Products
+export default TermekekOldal
