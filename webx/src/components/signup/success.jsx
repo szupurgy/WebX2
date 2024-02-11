@@ -19,7 +19,7 @@ const UtolsoLap = async(values) => {
   console.log(data)
   window.localStorage.setItem('token',data.token);
     
-  location.href="login";
+  location.href="home";
   return (
     <div className='w-screen h-screen justify-center flex items-center text-4xl'>Sikeres Regisztráció</div>
   )
