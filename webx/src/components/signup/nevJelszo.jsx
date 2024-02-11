@@ -7,9 +7,19 @@ const NevJelszoIn = ({prevStep,nextStep,handleChange,values}) => {
     }
 
     const Continue = e => {
-        e.preventDefault();
         nextStep();
     }
+
+    const NevJelszoCheck=()=>{
+        const nev=values.username;
+        const jelszo=values.password;
+        const jelszo2=values.password2;
+        if (jelszo!=jelszo2 || nev=="" || nev==null || jelszo=="" || jelszo==null || jelszo.length<8) {
+            alert("Nem valós adatok!");
+            return;
+        }
+        Continue();
+    };
 
   return (
     <>
@@ -28,7 +38,7 @@ const NevJelszoIn = ({prevStep,nextStep,handleChange,values}) => {
                     <label className='p-2 text-4xl mb-4'>Jelszó:</label>
                         <input 
                             className='border text-lg w-full rounded-md p-2.5 shadow-md'
-                            type="text" 
+                            type="password" 
                             placeholder="Jelszó" 
                             value={values.password} 
                             onChange={handleChange('password')}
@@ -36,7 +46,7 @@ const NevJelszoIn = ({prevStep,nextStep,handleChange,values}) => {
                     <label className='p-2 text-4xl mb-4'>Jelszó újra:</label>
                         <input 
                             className='border text-lg w-full rounded-md p-2.5 shadow-md'
-                            type="text" 
+                            type="password" 
                             placeholder="Jelszó újra" 
                             value={values.password2} 
                             onChange={handleChange('password2')}
@@ -46,7 +56,7 @@ const NevJelszoIn = ({prevStep,nextStep,handleChange,values}) => {
             </form>
             <div className='flex w-full gap-4'>
                 <button className='border bg-indigo-600 rounded-md text-white p-2.5 text-lg font-bold shadow-md w-full'  onClick={ Previous }>Vissza</button>
-                <button className='border bg-indigo-600 rounded-md text-white p-2.5 text-lg font-bold shadow-md w-full'  onClick={ Continue }>Következő</button>
+                <button className='border bg-indigo-600 rounded-md text-white p-2.5 text-lg font-bold shadow-md w-full'  onClick={ NevJelszoCheck }>Következő</button>
             </div>
         </div>
         </div>

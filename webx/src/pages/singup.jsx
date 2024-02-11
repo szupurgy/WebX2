@@ -30,7 +30,6 @@ export default class singup extends Component {
     // handle field change
     handleChange = input => e => {
         this.setState({ [input]: e.target.value });
-        console.log(this.state)
     }
 
 
@@ -68,7 +67,9 @@ export default class singup extends Component {
           )
         case 4:
           return (
-            <UtolsoLap />
+            <UtolsoLap 
+                values={values}
+            />
           )
         default: 
       }

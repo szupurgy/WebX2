@@ -7,8 +7,21 @@ const TelSzulIn = ({prevStep,nextStep,handleChange,values}) => {
     }
 
     const Continue = e => {
-        e.preventDefault();
         nextStep();
+    }
+
+    const TelSzulChecker = () => {
+        const tel=values.telszam;
+        const szuldatum=values.szuldatum;
+        if (tel=="" || tel==null ||tel.length!=11) {
+            alert("Nem valós adatok!");
+            return;
+        }
+        if (szuldatum=="" || szuldatum==null) {
+            alert("Nem valós adatok!");
+            return;
+        }
+        Continue();
     }
   return (
     <>
@@ -36,7 +49,7 @@ const TelSzulIn = ({prevStep,nextStep,handleChange,values}) => {
             </form>
                 <div className='flex w-full gap-4'>
                     <button className='border bg-indigo-600 rounded-md text-white p-2.5 text-lg font-bold shadow-md w-full'  onClick={Previous}>Vissza</button>
-                    <button className='border bg-indigo-600 rounded-md text-white p-2.5 text-lg font-bold shadow-md w-full'  onClick={Continue}>Regisztráció</button>
+                    <button className='border bg-indigo-600 rounded-md text-white p-2.5 text-lg font-bold shadow-md w-full'  onClick={TelSzulChecker}>Regisztráció</button>
                 </div>
         </div>
         </div>

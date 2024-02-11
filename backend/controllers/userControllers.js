@@ -75,8 +75,31 @@ const getUsers=(req,res)=>{
     res.json(req.user)
 }
 
+const emailCheck= async (req,res)=>{
+    const{email} = req.body;
+    if(!email){
+        res.json('Hiányzó adat!');
+        return;
+    }
+    const user= await prisma.user.findUnique({
+        where:{
+            email:email
+        }
+    });
+
+    if(user){
+        res.json({message:"Az email cím foglalt!"});
+        return;
+    } else {
+        res.json({success:"Az email cím szabad"});
+        return;
+    }
+}
+
+
 module.exports = {
     register,
     login,
-    getUsers
+    getUsers,
+    emailCheck
 }
