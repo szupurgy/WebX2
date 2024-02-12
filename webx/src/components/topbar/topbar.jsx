@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import {CgProfile} from "react-icons/cg"
 import { CgLogOut } from "react-icons/cg";
 const TopBar = () => {
+  
   const token=localStorage.getItem("token");
   
   const Kivagy= async () => {
@@ -31,7 +32,7 @@ const TopBar = () => {
     Links=[
       {name:"Kezdőlap",link:"/home"},
       {name:"Termékek",link:"/products"},
-      {name:<hr />},
+      {name:<hr/>},
       {name:<CgLogOut className='text-3xl' />, link:"/logout"}
     ]
   }
