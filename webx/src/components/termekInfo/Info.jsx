@@ -1,6 +1,7 @@
 import React from 'react'
 
 const TInfo = () => {
+  //{nev,leiras,ar,link}
   return (
     <div className='mt-8 w-2/3 mx-auto flex flex-col justify-center items-center'>
     <div className='flex gap-4'>

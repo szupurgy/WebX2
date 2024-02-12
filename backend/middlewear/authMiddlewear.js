@@ -4,7 +4,6 @@ const jwt= require('jsonwebtoken');
 
 const protect = async(req,res,next)=>{
     let token;
-    console.log(req.headers)
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         try{
             token=req.headers.authorization.split(' ')[1];
@@ -18,7 +17,7 @@ const protect = async(req,res,next)=>{
                     email:true,
                     felhasznalonev:true,
                     telszam:true,
-                    szulev:true
+                    szuldatum:true
                 }
             });
             console.log(req.user)

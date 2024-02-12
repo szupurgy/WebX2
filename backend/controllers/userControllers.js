@@ -61,7 +61,7 @@ const login= async (req,res)=>{
     }
 
     if(!(await arg2.verify(user.jelszo,jelszo))){
-        res.json({message:"Nem megfelelő jelszó!"})
+        res.json({message:"Nem megfelelő jelszó!"});
         return;
     }
 

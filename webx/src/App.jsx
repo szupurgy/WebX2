@@ -6,6 +6,7 @@ import Belepes from './pages/login'
 import SignUp from './pages/singup'
 import Products from './pages/Termekek'
 import TermekOldal from './pages/Product'
+import LogOut from './pages/kilep'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/products' element={<Products />} />
         <Route path='/info' element={<TermekOldal />} />
+        <Route path='/logout' element={<LogOut />} />
         <Route path='*' element={<NoPage />} />
       </Routes>
     </BrowserRouter>
