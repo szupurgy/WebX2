@@ -1,0 +1,16 @@
+{
+                        termekek?.map(termek => (
+                            <div className='flex rounded-md w-5/6 border p-2'>
+                                <div className=''>
+                                    <img className='h-full' src="https://images.macrumors.com/t/OGS-wMpuHXbX6VkpJd6urJH1rEg=/1600x0/article-new/2023/09/iphone-15-pro-gray.jpg" />
+                                </div>
+                                <div className='flex flex-col p-2 justify-center items-center'>
+                                    <h1 className='text-2xl'>{termek.nev}</h1>
+                                    <h2 className='text-xl'>{termek.ar}Ft</h2>
+                                    <button className='ring-2 rounded-md p-2 bg-indigo-300 ring-indigo-400'>
+                                        Vásárlás
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    }
