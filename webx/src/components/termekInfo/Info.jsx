@@ -7,7 +7,6 @@ const TInfo = () => {
     <div className='flex gap-4'>
       <img
         src="https://images.macrumors.com/t/OGS-wMpuHXbX6VkpJd6urJH1rEg=/1600x0/article-new/2023/09/iphone-15-pro-gray.jpg"
-        alt=""
         className='w-[400px] h-[225px] cursor-pointer'
       />
       <div className='flex flex-col m-4'>

@@ -1,25 +1,30 @@
 import React from 'react'
-import TopBar from '../components/topbar/topbar'
+import axios from "axios"
 
 const Belepes = () => {
-    const Belep = async()=> {
+    const belepes= async()=> {
         const email=document.querySelector("#Name").value;
         const jelszo=document.querySelector("#Password").value;
-        const response = await fetch('http://localhost:8000/user/login',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email,
-                jelszo: jelszo
-            })
+        axios.post("http://localhost:8000/user/login", {
+            email: email,
+            jelszo: jelszo,
+    }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then((res) => {
+            console.log(res)
+            if (res.data=="Hiányzó adat!") {
+                alert("Hiányzó adatok!");
+            } else if (res.data.message == "Felhasználó nem található!") {
+                alert("Felhasználó nem található!");
+            } else{
+                localStorage.setItem("token", res.data.token)
+                location.href = '/home'
+            }
         })
-        const data = await response.json();
-        console.log(data)
-        localStorage.setItem("token",data.token);
-        location.href = '/home'
-    };
+    }
   return (
     <>
     <div className='w-screen h-screen justify-center items-center flex flex-col'>
@@ -41,7 +46,7 @@ const Belepes = () => {
                     <a href="signup" className='text-blue-600'>Regisztráció</a>
                     
                         <div className=' flex justify-center items-center'>
-                            <button id='Belepes' onClick={Belep} type="button" className='text-2xl m-6 p-3 border rounded-md bg-green-700'>Belépés!</button>
+                            <button id='Belepes' onClick={belepes} type="button" className='text-2xl m-6 p-3 border rounded-md bg-green-700'>Belépés!</button>
                         </div>
                    
                 </div>
