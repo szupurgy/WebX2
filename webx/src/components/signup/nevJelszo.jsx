@@ -1,5 +1,5 @@
 import React from 'react'
-
+import toast from 'react-hot-toast';
 const NevJelszoIn = ({prevStep,nextStep,handleChange,values}) => {
     const Previous = e => {
         e.preventDefault();
@@ -15,7 +15,7 @@ const NevJelszoIn = ({prevStep,nextStep,handleChange,values}) => {
         const jelszo=values.password;
         const jelszo2=values.password2;
         if (jelszo!=jelszo2 || nev=="" || nev==null || jelszo=="" || jelszo==null || jelszo.length<8) {
-            alert("Nem valós adatok!");
+            toast.error("Nem valós adatok!");
             return;
         }
         Continue();

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import toast from 'react-hot-toast';
 const EmailIn = ({nextStep,handleChange,values}) => {
     const Continue = e => {
         nextStep();
@@ -7,7 +7,7 @@ const EmailIn = ({nextStep,handleChange,values}) => {
     const EmailCheck=async()=>{
         const email=values.email;
         if (email=="" || email==null ||email.includes("@")==false || email.includes(".")==false) {
-            alert("Valódi email címet adj meg!");
+            toast.error("Valódi email címet adj meg!");
             return;
         }
         const response=await fetch('http://localhost:8000/user/emailCheck',{
@@ -19,7 +19,7 @@ const EmailIn = ({nextStep,handleChange,values}) => {
         })
         const data=await response.json();
         if(data.message){
-            alert(data.message);
+            toast.error(data.message);
             return;
         }
         if(data.success){

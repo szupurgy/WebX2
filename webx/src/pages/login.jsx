@@ -1,13 +1,14 @@
 import React from 'react'
 import axios from "axios"
+import toast, { Toaster } from 'react-hot-toast';
 
 const Belepes = () => {
     const belepes= async()=> {
         const email=document.querySelector("#Name").value;
         const jelszo=document.querySelector("#Password").value;
         axios.post("http://localhost:8000/user/login", {
-            email: email,
-            jelszo: jelszo,
+        email: email,
+        jelszo: jelszo,
     }, {
         headers: {
             'Content-Type': 'application/json'
@@ -16,9 +17,9 @@ const Belepes = () => {
         .then((res) => {
             console.log(res)
             if (res.data=="Hiányzó adat!") {
-                alert("Hiányzó adatok!");
+                toast.error("Hiányzó adatok!");
             } else if (res.data.message == "Felhasználó nem található!") {
-                alert("Felhasználó nem található!");
+                toast.error("Felhasználó nem található!");
             } else{
                 localStorage.setItem("token", res.data.token)
                 location.href = '/home'

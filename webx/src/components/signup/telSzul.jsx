@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from "axios"
-
+import toast from 'react-hot-toast';
 const TelSzulIn = ({ prevStep, nextStep, handleChange, values }) => {
     const Previous = e => {
         e.preventDefault();
@@ -15,11 +15,11 @@ const TelSzulIn = ({ prevStep, nextStep, handleChange, values }) => {
         const tel = values.telszam;
         const szuldatum = values.szuldatum;
         if (tel == "" || tel == null || tel.length != 11) {
-            alert("Nem valós adatok!");
+            toast.error("Nem valós adatok!");
             return;
         }
         if (szuldatum == "" || szuldatum == null) {
-            alert("Nem valós adatok!");
+            toast.error("Nem valós adatok!");
             return;
         }
         axios.post("http://localhost:8000/user/register", {
@@ -38,9 +38,9 @@ const TelSzulIn = ({ prevStep, nextStep, handleChange, values }) => {
                     //Sikeres
                     localStorage.setItem("token", res.data.token)
                     Continue();
-                }else {
+                } else {
                     //Sikertelen - hibás
-                    alert("Váratlan hiba!");
+                    toast.error("Váratlan hiba!");
                 }
             })
         //Continue();
