@@ -9,6 +9,17 @@ const getAllProduct= async (req,res)=>{
     res.json(response);
 }
 
+const getProductById = async (req, res) => {
+    const { id } = req.body
+    const product = await prisma.termek.findUnique({
+        where: {
+            id: Number(id)
+        }
+    })
+    res.json(product)
+}
+
 module.exports = {
-    getAllProduct
+    getAllProduct,
+    getProductById
 }
