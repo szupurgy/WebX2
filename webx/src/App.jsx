@@ -19,7 +19,7 @@ function App() {
         <Route path='/login' element={<Belepes />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/products' element={<Products />} />
-        <Route path='/info' element={<TermekOldal />} />
+        <Route path='/info/:id' element={<TermekOldal />} />
         <Route path='/logout' element={<LogOut />} />
         <Route path='*' element={<NoPage />} />
       </Routes>

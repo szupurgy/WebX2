@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TInfo = () => {
+const TInfo = ({data}) => {
   //{nev,leiras,ar,link}
   return (
     <div className='mt-8 w-2/3 mx-auto flex flex-col justify-center items-center'>
@@ -10,9 +10,9 @@ const TInfo = () => {
         className='w-[400px] h-[225px] cursor-pointer'
       />
       <div className='flex flex-col m-4'>
-        <h1 className='text-3xl font-medium'>ip15</h1>
+        <h1 className='text-3xl font-medium'>{data?.nev}</h1>
         <span className='my-3'>Raktáron</span>
-        <span className='text-4xl font-semibold my-8'>500 000 Ft-tól</span>
+        <span className='text-4xl font-semibold my-8'>{data?.ar} Ft-tól</span>
         <span className='p-4 bg-slate-500 rounded-full max-w-36 cursor-pointer'>
           <h1 className='text-xl text-white text-center'>Vásárlás</h1>
         </span>

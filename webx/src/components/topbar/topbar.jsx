@@ -25,14 +25,12 @@ const TopBar = () => {
     Links = [
       { name: "Kezdőlap", link: "/home" },
       { name: "Termékek", link: "/products" },
-      { name: <hr /> },
       { name: <CgProfile className='text-3xl' />, link: "/login" }
     ]
   } else {
     Links = [
       { name: "Kezdőlap", link: "/home" },
       { name: "Termékek", link: "/products" },
-      { name: <hr /> },
       { name: <CgLogOut className='text-3xl' />, link: "/logout" }
     ]
   }
