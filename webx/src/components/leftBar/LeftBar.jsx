@@ -4,7 +4,7 @@ const LeftBar = () => {
   const [oldalBar, setOldalBar] = useState(false);
   return (
     <div className={`flex ${oldalBar ? 'w-14' : 'w-1/3'}`} >
-      <div className={` ${oldalBar ? 'w-14' : 'w-1/3'} fixed border-r-2 bg-slate-100 h-screen`}>
+      <div className={` ${oldalBar ? 'w-14' : 'w-1/3'} fixed duration-300 transition-all ease-in border-r-2 bg-slate-100 h-screen`}>
         <div className='flex justify-between pl-3'>
           <h1 className={`text-center text-3xl ${oldalBar ? 'hidden' : 'flex'}`}>Szűrő</h1>
           <button className='ring-2 rounded-md m-3 bg-blue-500' onClick={() => { setOldalBar(!oldalBar) }}>{`${oldalBar ? 'Nyit' : 'Zár'}`}</button>
