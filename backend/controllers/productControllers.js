@@ -44,9 +44,9 @@ const kosarTartalom= async (req, res) => {
                     floID:req.user.id
                 },
                 select:{
-                    id:false,
+                    id:true,
                     floID:true,
-                    TmkID:true,
+                    Termek:true,
                 }
             }
         )
@@ -56,9 +56,26 @@ const kosarTartalom= async (req, res) => {
     }
 }
 
+const deleteFromCart = async(req, res) => {
+    const { id } = req.body ;
+    try {
+        const deleteFromCart = await prisma.kosar.delete(
+            {
+                where:{
+                    id:id
+                }
+            }
+        )
+        res.json("Sikeresen Törölve!")
+    } catch (err) {
+        res.json(err.message)
+    }
+}
+
 module.exports = {
     getAllProduct,
     getProductById,
     addToCart,
-    kosarTartalom
+    kosarTartalom,
+    deleteFromCart
 }
