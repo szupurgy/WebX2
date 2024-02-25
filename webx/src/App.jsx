@@ -7,9 +7,9 @@ import SignUp from './pages/singup'
 import Products from './pages/Termekek'
 import TermekOldal from './pages/Product'
 import LogOut from './pages/kilep'
+import Kosar from './pages/kosar'
 
 function App() {
-
   return (
     <>
     <BrowserRouter>
@@ -21,6 +21,7 @@ function App() {
         <Route path='/products' element={<Products />} />
         <Route path='/info/:id' element={<TermekOldal />} />
         <Route path='/logout' element={<LogOut />} />
+        <Route path='/kosar' element={<Kosar />} />
         <Route path='*' element={<NoPage />} />
       </Routes>
     </BrowserRouter>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg"
 import { CgLogOut } from "react-icons/cg";
+import { FaCartShopping} from "react-icons/fa6";
 import axios from 'axios';
 const TopBar = () => {
   const token = localStorage.getItem("token");
@@ -16,6 +17,7 @@ const TopBar = () => {
       { name: "Kezdőlap", link: "/home" },
       { name: "Termékek", link: "/products" },
       { name: <hr /> },
+      { name: <FaCartShopping className='text-3xl'/>, link: "/kosar" },
       { name: <CgProfile className='text-3xl' />, link: "/login" }
     ]
   } else {
@@ -23,6 +25,7 @@ const TopBar = () => {
       { name: "Kezdőlap", link: "/home" },
       { name: "Termékek", link: "/products" },
       { name: <hr /> },
+      { name: <FaCartShopping/>, link: "/kosar" },
       { name: <CgLogOut className='text-3xl' />, link: "/logout" }
     ]
   }

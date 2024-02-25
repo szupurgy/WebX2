@@ -7,11 +7,8 @@ const TermekekOldal = () => {
   return (
     <div className='overflow-hidden'>
       <TopBar />
-      <div className="flex">
-        <LeftBar></LeftBar>
-        <AllProducts />
-      </div>
-
+      <LeftBar></LeftBar>
+      <AllProducts />
     </div>
   )
 }
