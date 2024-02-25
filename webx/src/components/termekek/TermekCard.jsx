@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const TermekCard = ({termek}) => {
     return (
         <>
-            <div className='main hover:scale-95 transition flex flex-col p-5 gap-5 rounded-2xl md:pb-10 drop sm:w-1/2 md:size-80 md:gap-1 size-11/12 shadow-2xl justify-center items-center bg-gradient-to-t from-stone-500'>
+            <div className='main hover:scale-95 transition flex flex-col p-5 gap-5 rounded-2xl md:ml-8 md:pb-10 drop sm:w-1/2 md:size-80 md:gap-1 size-11/12 shadow-2xl justify-center items-center bg-gradient-to-t from-stone-500'>
                 <div className='kep'>
                     <img src='https://media-play.pl/ecommerce/medias/productimages/48733/TE-AP-12PM1-PL1-BU/square.png' className='size-60 md:size-40 hover:scale-110 transition drop-shadow-2xl' />
                 </div>

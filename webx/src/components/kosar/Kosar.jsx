@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import {IoTrashBin} from "react-icons/io5";
 import KosarElem from './kosarElemek';
 const KosarPage = () => {
-    getProduct
     return (
         <>
             <div className='w-full flex md:flex-row flex-col bg-stone-100 h-full '>
