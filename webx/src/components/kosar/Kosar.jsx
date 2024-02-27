@@ -2,25 +2,36 @@ import React, { useEffect, useState } from 'react'
 import {IoTrashBin} from "react-icons/io5";
 import KosarElem from './kosarElemek';
 const KosarPage = () => {
-    const [termekek, setTermekek] = useState(null)
+    const [termekek, setTermekek] = useState([])
     const [vantermek,setVanTermek] = useState(true);
     const token= localStorage.getItem("token");
     useEffect(() =>{
-        const kosarTartalma = (async() =>{
-            const response = await fetch("http://localhost:8000/product/kosaram",{
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json',
-                    'authorization':`Bearer ${token}`
-                }
-            })
-            const data= await response.json();
-            setTermekek(data);
-        });
-        kosarTartalma();
+        if (!token) {
+            setVanTermek(false);
+        } else {
+            const kosarTartalma = (async() =>{
+                const response = await fetch("http://localhost:8000/product/kosaram",{
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json',
+                        'authorization':`Bearer ${token}`
+                    }
+                })
+                const data= await response.json();
+                setTermekek(data);
+            });
+            kosarTartalma();
+        }
     },[])
+    if (!token) {
+        return(
+            <div className="text-center">
+                <h1 className="text-3xl text-gray-800">Kosár megtekintéséhez jelentkezzen be!</h1>
+            </div>
+        )
+    }
     const elem=()=>{
-        if (termekek==null || termekek.length==0) {
+        if (termekek==[] || termekek.length==0) {
             return(
                 <h1 className='text-4xl text-center md:text-start'>Nincsenek termékek a kosárban!</h1>
             )

@@ -14,19 +14,19 @@ const TopBar = () => {
   let Links = [];
   if (!token) {
     Links = [
-      { name: "Kezdőlap", link: "/home" },
-      { name: "Termékek", link: "/products" },
-      { name: <hr /> },
-      { name: <FaCartShopping className='text-3xl'/>, link: "/kosar" },
-      { name: <CgProfile className='text-3xl' />, link: "/login" }
+      { id:1 , name: "Kezdőlap", link: "/home" },
+      { id:2 , name: "Termékek", link: "/products" },
+      { id:3 , name: <hr /> },
+      { id:4 , name: <FaCartShopping className='text-3xl'/>, link: "/kosar" },
+      { id:5 , name: <CgProfile className='text-3xl' />, link: "/login" }
     ]
   } else {
     Links = [
-      { name: "Kezdőlap", link: "/home" },
-      { name: "Termékek", link: "/products" },
-      { name: <hr /> },
-      { name: <FaCartShopping/>, link: "/kosar" },
-      { name: <CgLogOut className='text-3xl' />, link: "/logout" }
+      { id:1 , name: "Kezdőlap", link: "/home" },
+      { id:2 , name: "Termékek", link: "/products" },
+      { id:3 , name: <hr /> },
+      { id:4 , name: <FaCartShopping/>, link: "/kosar" },
+      { id:5 , name: <CgLogOut className='text-3xl' />, link: "/logout" }
     ]
   }
 
@@ -46,14 +46,13 @@ const TopBar = () => {
         ${MenuBar ? 'top-20 opacity-100' : 'top-[-490px]'} md:opacity-100 opacity-0 `}>
             {
               Links.map((gombok) => (
-                <li key={gombok.name} className='md:ml-8 text-lg pr-6 my-7 md:my-0'>
+                <li key={gombok.id} className='md:ml-8 text-lg pr-6 my-7 md:my-0'>
                   <Link to={gombok.link} className='text-gray-800 hover:text-gray-400 cursor-pointer duration-500'>{gombok.name}</Link>
                 </li>
               ))
             }
           </ul>
         </div>
-
       </div>
       <div className='h-24'></div>
     </>
