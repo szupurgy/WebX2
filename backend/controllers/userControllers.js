@@ -38,6 +38,12 @@ const register= async(req,res) => {
         }
     });
 
+    const lakcim= await prisma.cim.create({
+        data:{
+            fid:ujUser.id
+        }
+    })
+
     const token= generateToken(ujUser.id);
     res.json({token: token});
     
@@ -75,6 +81,16 @@ const getUsers=(req,res)=>{
     res.json(req.user)
 }
 
+const getUserDeliveryAddress= async(req,res)=>{
+    const user = req.user;
+    const deliveryAddress =await prisma.cim.findFirst({
+        where:{
+            fid:user.id
+        }
+    })
+    res.json(deliveryAddress)
+}
+
 const emailCheck= async (req,res)=>{
     const{email} = req.body;
     if(!email){
@@ -101,5 +117,6 @@ module.exports = {
     register,
     login,
     getUsers,
-    emailCheck
+    emailCheck,
+    getUserDeliveryAddress
 }

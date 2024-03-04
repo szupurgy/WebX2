@@ -29,6 +29,8 @@ model termek {
   nev      String
   leiras   String
   ar       Int
+  akcios   Boolean    @default(false)
+  akciosar Int?
   rendeles rendeles[]
   kosar    kosar[]
 
@@ -37,11 +39,11 @@ model termek {
 
 model cim {
   id           Int        @id @default(autoincrement())
-  orszag       String
-  varos        String
-  utca         String
-  hazszam      Int
-  iranyitoszam Int
+  orszag       String?
+  varos        String?
+  utca         String?
+  hazszam      Int?
+  iranyitoszam Int?
   felhasznalo  user       @relation(fields: [fid], references: [id])
   fid          Int
   rendeles     rendeles[]

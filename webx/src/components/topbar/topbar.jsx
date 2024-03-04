@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg"
 import { CgLogOut } from "react-icons/cg";
 import { FaCartShopping} from "react-icons/fa6";
+import profileMenu from "./profileMenu"
 import axios from 'axios';
 const TopBar = () => {
   const token = localStorage.getItem("token");
@@ -14,19 +15,20 @@ const TopBar = () => {
   let Links = [];
   if (!token) {
     Links = [
-      { id:1 , name: "Kezdőlap", link: "/home" },
-      { id:2 , name: "Termékek", link: "/products" },
-      { id:3 , name: <hr /> },
-      { id:4 , name: <FaCartShopping className='text-3xl'/>, link: "/kosar" },
-      { id:5 , name: <CgProfile className='text-3xl' />, link: "/login" }
+      { id:1, name: "Kezdőlap", link: "/home" },
+      { id:2, name: "Termékek", link: "/products" },
+      { id:3, name: <hr /> },
+      { id:4, name: <FaCartShopping className='text-3xl'/>, link: "/kosar" },
+      { id:5, name: <CgProfile className='text-3xl' />, link: `/login` }
     ]
   } else {
     Links = [
-      { id:1 , name: "Kezdőlap", link: "/home" },
-      { id:2 , name: "Termékek", link: "/products" },
-      { id:3 , name: <hr /> },
-      { id:4 , name: <FaCartShopping/>, link: "/kosar" },
-      { id:5 , name: <CgLogOut className='text-3xl' />, link: "/logout" }
+      { id:1, name: "Kezdőlap", link: "/home" },
+      { id:2, name: "Termékek", link: "/products" },
+      { id:3, name: <hr /> },
+      { id:4, name: <FaCartShopping/>, link: "/kosar" },
+      { id:5, name: <CgProfile className='text-3xl' />, link: `/profile` },
+      { id:6, name: <CgLogOut className='text-4xl' />, link: "/logout" }
     ]
   }
 
@@ -53,8 +55,9 @@ const TopBar = () => {
             }
           </ul>
         </div>
+
       </div>
-      <div className='h-24'></div>
+      
     </>
   )
 }

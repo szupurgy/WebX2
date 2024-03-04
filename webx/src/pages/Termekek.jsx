@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import TopBar from '../components/topbar/topbar'
-import AllProducts from '../components/termekek/Termekek'
+import AllProducts from '../components/termekek/termekek'
 import LeftBar from '../components/leftBar/LeftBar'
 
 const TermekekOldal = () => {
@@ -14,7 +14,9 @@ const TermekekOldal = () => {
     return
   }
   return (
+
     <div className='overflow-hidden'>
+      <div className='h-24'></div>
       <TopBar />
       <LeftBar szuro={arszuro}/>
       <AllProducts maxp={maxar} minp={minar} />
