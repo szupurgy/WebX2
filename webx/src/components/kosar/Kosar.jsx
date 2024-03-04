@@ -1,37 +1,37 @@
 import React, { useEffect, useState } from 'react'
-import {IoTrashBin} from "react-icons/io5";
+import { IoTrashBin } from "react-icons/io5";
 import KosarElem from './kosarElemek';
 const KosarPage = () => {
     const [termekek, setTermekek] = useState(null)
-    const [vantermek,setVanTermek] = useState(true);
-    const token= localStorage.getItem("token");
+    const [vantermek, setVanTermek] = useState(true);
+    const token = localStorage.getItem("token");
     if (!token) {
         return (
             <h1 className='text-4xl w-screen flex justify-center items-center bg-slate-100 h-screen  text-center md:text-start'>A kosárhoz jelentkezzen be!</h1>
         )
     }
-    useEffect(() =>{
-        const kosarTartalma = (async() =>{
-            const response = await fetch("http://localhost:8000/product/kosaram",{
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json',
-                    'authorization':`Bearer ${token}`
+    useEffect(() => {
+        const kosarTartalma = (async () => {
+            const response = await fetch("http://localhost:8000/product/kosaram", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${token}`
                 }
             })
-            const data= await response.json();
+            const data = await response.json();
             setTermekek(data);
         });
         kosarTartalma();
-    },[])
-    const elem=()=>{
-        if (termekek==null || termekek.length==0) {
-            return(
+    }, [])
+    const elem = () => {
+        if (termekek == null || termekek.length == 0) {
+            return (
                 <h1 className='text-4xl text-center md:text-start'>Nincsenek termékek a kosárban!</h1>
             )
         }
     }
-
+    let ar = 0;
     return (
         <>
             <div className='h-24'></div>
@@ -39,8 +39,9 @@ const KosarPage = () => {
                 <div className='w-full md:w-4/6 p-3 gap-3 h-full border-r-2'>
                     {
                         termekek && termekek.map((termek) => {
+                            ar += (termek.Termek.ar)
                             return (
-                                <KosarElem termek={termek} key={termek.id}/>
+                                <KosarElem termek={termek} key={termek.id} />
                             )
                         })
                     }
@@ -59,16 +60,17 @@ const KosarPage = () => {
                         <hr className='mx-5' />
                         <div id='termekek' className='flex flex-col mx-5 gap-2 mt-2 mb-2'>
                             {
-                                termekek && termekek.map((termek,index) => (
-                                        <h2 key={index}>{} X {termek.Termek.nev}</h2>
+                                termekek && termekek.map((termek, index) => (
+                                    <h2 key={index}>{termek.Termek.nev}</h2>
                                 ))
                             }
                             {/* kodbol ide a termekek neve x mennyiseg */}
                         </div>
-                        <hr className='mx-5 mb-5' />
+                        <hr className='mx-5' />
+                        <h2 className='p-2 text-xl text-indigo-800'><span className='text-2xl text-black font-bold'>Végösszeg:</span>{ar} Ft</h2>
                     </div>
                     <div className='flex justify-end '>
-                        <button className={`${setVanTermek ? "flex":"hidden"} border bg-slate-300 border-slate-400 rounded-s-md p-2 w-20 duration-300 after:content-["Vásárlás"] hover:after:content-["Tovább_az_adatok_megadásához"] h-10 text-nowrap hover:w-64`}></button>
+                        <button className={`${setVanTermek ? "flex" : "hidden"} border bg-slate-300 border-slate-400 rounded-s-md p-2 w-20 duration-300 after:content-["Vásárlás"] hover:after:content-["Tovább_az_adatok_megadásához"] h-10 text-nowrap hover:w-64`}></button>
                     </div>
                 </div>
             </div>
