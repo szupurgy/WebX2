@@ -50,6 +50,17 @@ const ProfileP = () => {
 
     const saveName=()=>{
       console.log(nev)
+      console.log(token)
+      axios.post("http://localhost:8000/new/changename",{
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${token}`
+        },
+        body:JSON.stringify({"set":nev})
+      },)
+        .then(({data})=>{
+           console.log(data)
+        })
     }
     const saveJelszo=()=>{
       console.log(regijelszo);

@@ -12,7 +12,13 @@ const TInfo = ({ data }) => {
       body: JSON.stringify({ tid: data.id })
     })
     const adat = await response.json();
-    toast.success("Termék sikeres a kosárba helyezve!");
+    console.log(adat);
+    if (adat.message=="Gondok vannak!") {
+      toast.error("Kosárba helyezéshez be kell jelentkezni!")
+    } else {
+      toast.success("Termék sikeres a kosárba helyezve!");
+    }
+    
   }
   return (
     <>
