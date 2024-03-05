@@ -1,6 +1,7 @@
 import TopBar from '../topbar/topbar'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import toast from "react-hot-toast"
 
 const ProfileP = () => {
   const [profile, setProfile] = useState()
@@ -11,7 +12,6 @@ const ProfileP = () => {
         <h1 className='text-4xl w-screen flex justify-center items-center bg-slate-100 h-screen  text-center md:text-start'>A profilhoz jelentkezzen be!</h1>
       )
     }
-
     const [nev,setNev] = useState();
 
     const [telefon,setTelefon] = useState();
@@ -47,31 +47,81 @@ const ProfileP = () => {
             setDelivery(data)
           })
     }, [])
-
-    const saveName=()=>{
-      console.log(nev)
-      console.log(token)
-      axios.post("http://localhost:8000/new/changename",{
+    const saveName=(async()=>{
+      if (nev=="" || nev==null || nev.length==0) {
+        toast.error("A név megadása kötelező!");
+        return;
+      } else if (nev=="Ferenczi Tímea"){
+        toast.error("A név nem lehet 'Ferenczi Tímea'!");
+        return;
+      }
+      const response= await fetch("http://localhost:8000/new/changename",{
+        method: "POST",
         headers: {
           'Content-Type': 'application/json',
           'authorization': `Bearer ${token}`
         },
         body:JSON.stringify({"set":nev})
-      },)
-        .then(({data})=>{
-           console.log(data)
-        })
-    }
-    const saveJelszo=()=>{
-      console.log(regijelszo);
-      console.log(ujjelszo);
-      console.log(ujjelszoag);
+      })
+      const data=await response.json();
+      toast.success("Sikeres név változtatás!")
+    })
+
+    const saveJelszo=async()=>{
+      toast.error("Ez a funció jelenleg nem elérhető")
+      return;
+      if (regijelszo==null || regijelszo.length==0 ||ujjelszo==null ||ujjelszo.length==0 || ujjelszoag==null || ujjelszoag.length==0) {
+        toast.error("Minden mező kitöltése kötelező!");
+        return;
+      }
+      if (ujjelszo.length < 8) {
+        toast.error("Az új jelszó nem megfelelő!")
+        return;
+      }
+      const testField={
+        "email": profile.email,
+        "jelszo": regijelszo
+      }
+      const testoldpassword= await fetch("http://localhost:8000/user/login",{
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${token}`
+        },
+        body:JSON.stringify(testField)
+      })
+      const oldpData= await testoldpassword.json();
+      if (oldpData.token) {}
+      else {
+        toast.error("Hibás Jelszó!")
+        return;
+      }
+      if (ujjelszo!=ujjelszoag) {
+        toast.error("Nem eggyezik a két jelszó!")
+        return;
+      }
+      const response = await fetch("http://localhost:8000/new/changepassword",{
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${token}`
+        },
+        body:JSON.stringify({"set":ujjelszo})
+      })
+      const data=await response.json();
+      console.log(data);
+      toast.success("Sikeres jelszó változtatás!")
+
     }
     const saveTelSzul=()=>{
+      toast.error("Ez a funció jelenleg nem elérhető")
+      return;
       console.log(telefon);
       console.log(szuldatum);
     }
     const saveDelivery=()=>{
+      toast.error("Ez a funció jelenleg nem elérhető")
+      return;
       console.log(orszag);
       console.log(varos);
       console.log(iranyitoszam);

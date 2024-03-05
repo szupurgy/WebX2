@@ -4,7 +4,6 @@ const prisma= new PrismaClient();
 
 const ChangeName= async(req,res)=>{
     const felhasznalonev=req.body;
-    console.log(req.user.id)
     if(!felhasznalonev){
         res.json('Hiányzó adat!');
         return;
@@ -26,6 +25,31 @@ const ChangeName= async(req,res)=>{
     }
 }
 
+const ChangePassword= async(req,res)=>{
+    const jelszo=req.body;
+    if(!jelszo){
+        res.json('Hiányzó adat!');
+        return;
+    }
+    try {
+        const hashjelszo=await arg2.hash(jelszo);
+        const setPass = await prisma.user.update(
+            {
+                where:{
+                    id:req.user.id
+                },
+                data:{
+                    hashjelszo
+                }
+            }
+        )
+        res.json(setPass);
+    } catch (err) {
+        res.json(err.message);
+    }
+}
+
 module.exports = {
-    ChangeName
+    ChangeName,
+    ChangePassword
 }
