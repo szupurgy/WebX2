@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { IoTrashBin } from "react-icons/io5"
-const KosarElem = ({termek}) => {
+const KosarElem = ({termek,adat}) => {
     const [mennyiseg, setMennyiseg] = useState(1);
     const token = localStorage.getItem("token");
+    console.log(adat)
     const deleteTermek = async () => {
         const response = await fetch("http://localhost:8000/product/delete", {
             method: 'POST',
@@ -19,12 +20,16 @@ const KosarElem = ({termek}) => {
         if (mennyiseg==10) {
             setMennyiseg(10)
         }
+        adat.mennyiseg=mennyiseg;
+        adat.ar=termek.Termek.ar*mennyiseg;
     }
     const MennyisegKevesebb = () => {
         setMennyiseg(mennyiseg - 1)
         if (mennyiseg == 1) {
             setMennyiseg(1)
         }
+        adat.mennyiseg=mennyiseg;
+        adat.ar=termek.Termek.ar*mennyiseg;
     }
     return (
         <div className='bg-slate-500 justify-between mb-4 flex flex-col rounded h-72'>

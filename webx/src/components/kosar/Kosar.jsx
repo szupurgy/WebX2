@@ -31,7 +31,11 @@ const KosarPage = () => {
             )
         }
     }
-    let ar = 0;
+
+    const adat={
+        ar: 0,
+        mennyiseg: 1
+    }
     return (
         <>
             <div className='h-24'></div>
@@ -39,9 +43,9 @@ const KosarPage = () => {
                 <div className='w-full md:w-4/6 p-3 gap-3 h-full border-r-2'>
                     {
                         termekek && termekek.map((termek) => {
-                            ar += (termek.Termek.ar)
+                            adat.ar += (termek.Termek.ar)
                             return (
-                                <KosarElem termek={termek} key={termek.id} />
+                                <KosarElem adat={adat} termek={termek} key={termek.id} />
                             )
                         })
                     }
@@ -67,7 +71,7 @@ const KosarPage = () => {
                             {/* kodbol ide a termekek neve x mennyiseg */}
                         </div>
                         <hr className='mx-5' />
-                        <h2 className='p-2 text-xl text-indigo-800'><span className='text-2xl text-black font-bold'>Végösszeg:</span>{ar} Ft</h2>
+                        <h2 className='p-2 text-xl text-indigo-800'><span className='text-2xl text-black font-bold'>Végösszeg:</span>{adat?.ar} Ft</h2>
                     </div>
                     <div className='flex justify-end '>
                         <button className={`${setVanTermek ? "flex" : "hidden"} border bg-slate-300 border-slate-400 rounded-s-md p-2 w-20 duration-300 after:content-["Vásárlás"] hover:after:content-["Tovább_az_adatok_megadásához"] h-10 text-nowrap hover:w-64`}></button>
