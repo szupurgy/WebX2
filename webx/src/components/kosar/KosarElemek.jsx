@@ -1,55 +1,54 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { IoTrashBin } from "react-icons/io5"
-const KosarElem = ({termek,adat}) => {
-    const [mennyiseg, setMennyiseg] = useState(1);
+import arContext from '../../context/ArContext';
+const KosarElem = ({termek,index}) => {
+    const [mennyiseg, setMennyiseg] = useState(termek.darab);
     const token = localStorage.getItem("token");
-    console.log(adat)
-    const deleteTermek = async () => {
-        const response = await fetch("http://localhost:8000/product/delete", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ id: termek.id })
+    const {ar,setAr, total,setCart}=useContext(arContext);
+    const deleteTermek = () => {
+        console.log("termék törlése: nip");
+        console.log(index)
+        setCart(prev => {
+            return prev.filter((item, i) => i !== index)
         })
-        location.reload();
     }
+
     const MennyisegTobb = () => {
-        setMennyiseg(mennyiseg + 1);
-        if (mennyiseg==10) {
-            setMennyiseg(10)
+        termek.darab+=1;
+        setMennyiseg(termek.darab)
+        if (termek.darab==11) {
+            termek.darab = 10;
+            setMennyiseg(termek.darab)
         }
-        adat.mennyiseg=mennyiseg;
-        adat.ar=termek.Termek.ar*mennyiseg;
     }
+
     const MennyisegKevesebb = () => {
-        setMennyiseg(mennyiseg - 1)
-        if (mennyiseg == 1) {
-            setMennyiseg(1)
+        termek.darab -= 1;
+        setMennyiseg(termek.darab)
+        if (termek.darab == 0) {
+            termek.darab = 1;
+            setMennyiseg(termek.darab)
         }
-        adat.mennyiseg=mennyiseg;
-        adat.ar=termek.Termek.ar*mennyiseg;
     }
     return (
-        <div className='bg-slate-500 justify-between mb-4 flex flex-col rounded h-72'>
+        <div className='bg-stone-400 justify-between mb-4 flex flex-col rounded h-72'>
             <div className='flex'>
                 <img src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png" className='size-40' />
                 <div className='flex flex-col'>
-                    <h2 className='px-5 pt-5 justify-between text-4xl text-indigo-800 font-bold'>{(termek.Termek.ar) * mennyiseg} Ft</h2>
+                    <h2 className='px-5 pt-5 justify-between text-4xl text-indigo-800 font-bold'>{termek?.akcios ? (termek.ar*(termek.akciosar/100)) * termek.darab : (termek.ar) * termek.darab} Ft</h2>
                     <h2 className='px-5'><span className='font-bold'>Garancia:</span> 12hónap</h2>
                     <h2 className='px-5'><span className='font-bold'>Értékelés:</span> 84% pozitív</h2>
                 </div>
             </div>
             <div className='p-3'>
-                <h1 className='text-4xl'>{termek.Termek.nev}</h1>
+                <h1 className='text-4xl'>{termek.nev}</h1>
             </div>
             <hr className='m-2' />
-            <div className='flex items-center text-2xl mb-3 justify-center'>
+            <div className='flex gap-3 items-center text-2xl mb-3 justify-center'>
                 <button onClick={() => { deleteTermek() }}><IoTrashBin className='size-6 text-red-700' /></button>
-                <button onClick={MennyisegKevesebb}>➖</button>
-                <span>{mennyiseg}</span>
-                <button onClick={MennyisegTobb}>➕</button>
+                <button className='text-black' onClick={MennyisegKevesebb}>🔽</button>
+                <span className='text-3xl font-bold'>{mennyiseg}</span>
+                <button onClick={MennyisegTobb}>🔼</button>
             </div>
         </div>
     )

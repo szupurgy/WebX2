@@ -1,22 +1,21 @@
-import React from 'react'
-import toast from 'react-hot-toast';
+import React, {useContext} from 'react'
+import arContext from '../../context/ArContext';
+import { toast } from 'react-hot-toast';
 const TInfo = ({ data }) => {
-  //{nev,leiras,ar,link}
-  const kosarba = async () => {
-    const response = await fetch("http://localhost:8000/product/addCart", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': `Bearer ${localStorage.getItem("token")}`
-      },
-      body: JSON.stringify({ tid: data.id })
-    })
-    const adat = await response.json();
-    console.log(adat);
-    if (adat.message=="Gondok vannak!") {
-      toast.error("Kosárba helyezéshez be kell jelentkezni!")
+  const {cart,setCart}=useContext(arContext);
+  const kosarba = () => {
+    const isItemInCart= cart?.find((item)=>item.id === data.id);
+    if (isItemInCart) {
+      setCart(
+      cart.map((cartItem)=>
+        cartItem.id === data.id
+        
+       ? {...cartItem, darab: cartItem.darab>=10? 10 : cartItem.darab + 1 }
+       : cartItem
+       )
+      )
     } else {
-      toast.success("Termék sikeres a kosárba helyezve!");
+      setCart([...cart,{ ...data,darab:1}])
     }
     
   }
@@ -34,7 +33,8 @@ const TInfo = ({ data }) => {
             <h1 onClick={kosarba} className='text-center w-full md:w-1/2 flex justify-center items-center cursor-pointer bg-stone-400 p-3 rounded-2xl text-3xl font-semibold font-sans'>Kosárba</h1>
           </div>
           <hr className='mx-5 mt-2' />
-          <h1 className='text-4xl mx-5 text-green-500 font-bold'>{data?.ar} Ft</h1>
+          <h1 className={`text-4xl mx-5 ${data?.akcios ? "line-through font-normal text-xl text-red-700" : "text-green-600 font-bold"}`}>{data?.ar} Ft</h1>
+          <h1 className={`text-green-500 text-4xl mx-5 font-bold ${data?.akcios ? "" : "hidden"} `}>{data?.ar*(data?.akciosar/100)} Ft</h1>
           <h2 className='mx-5'>Garancia: 12 hónap</h2>
         </div>
       </div>

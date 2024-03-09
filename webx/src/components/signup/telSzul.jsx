@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import axios from "axios"
 import toast from 'react-hot-toast';
+import userContext from '../../context/UserContext';
 const TelSzulIn = ({ prevStep, nextStep, handleChange, values }) => {
+
+    const {setToken}=useContext(userContext);
+
     const Previous = e => {
         e.preventDefault();
         prevStep();
@@ -37,6 +41,7 @@ const TelSzulIn = ({ prevStep, nextStep, handleChange, values }) => {
                 if (res.status == 200) {
                     //Sikeres
                     localStorage.setItem("token", res.data.token)
+                    setToken(res.data.token)
                     Continue();
                 } else {
                     //Sikertelen - hibás

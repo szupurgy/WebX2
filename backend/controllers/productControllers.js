@@ -5,13 +5,13 @@ const arg2= require('argon2');
 const prisma= new PrismaClient();
 
 const getAllProduct= async (req,res)=>{
-    const response= await prisma.termek.findMany();
+    const response= await prisma.termekek.findMany();
     res.json(response);
 }
 
 const getProductById = async (req, res) => {
     const { id } = req.body
-    const product = await prisma.termek.findUnique({
+    const product = await prisma.termekek.findUnique({
         where: {
             id: Number(id)
         }
@@ -19,63 +19,7 @@ const getProductById = async (req, res) => {
     res.json(product)
 }
 
-const addToCart= async (req, res) => {
-    const { tid } = req.body ;
-    try {
-        const addToCart = await prisma.kosar.create(
-            {
-                data:{
-                    floID:req.user.id,
-                    TmkID:tid
-                }
-            }
-        )
-        res.json("Kosárba helyezve!")
-    } catch (err) {
-        res.json(err.message)
-    }
-}
-
-const kosarTartalom= async (req, res) => {
-    try {
-        const kosar= await prisma.kosar.findMany(
-            {
-                where:{
-                    floID:req.user.id
-                },
-                select:{
-                    id:true,
-                    floID:true,
-                    Termek:true,
-                }
-            }
-        )
-        res.json(kosar)   
-    } catch (err) {
-        res.json(err.message)
-    }
-}
-
-const deleteFromCart = async(req, res) => {
-    const { id } = req.body ;
-    try {
-        const deleteFromCart = await prisma.kosar.delete(
-            {
-                where:{
-                    id:id
-                }
-            }
-        )
-        res.json("Sikeresen Törölve!")
-    } catch (err) {
-        res.json(err.message)
-    }
-}
-
 module.exports = {
     getAllProduct,
-    getProductById,
-    addToCart,
-    kosarTartalom,
-    deleteFromCart
+    getProductById
 }

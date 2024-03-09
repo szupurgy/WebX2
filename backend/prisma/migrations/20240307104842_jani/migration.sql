@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `kosar` ADD COLUMN `darab` INTEGER NOT NULL DEFAULT 1;

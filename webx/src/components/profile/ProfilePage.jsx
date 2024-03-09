@@ -1,8 +1,8 @@
 import TopBar from '../topbar/topbar'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import toast from "react-hot-toast"
-
+import userContext from '../../context/UserContext'
 const ProfileP = () => {
   const [profile, setProfile] = useState()
   const [delivery, setDelivery] = useState()
@@ -12,6 +12,8 @@ const ProfileP = () => {
         <h1 className='text-4xl w-screen flex justify-center items-center bg-slate-100 h-screen  text-center md:text-start'>A profilhoz jelentkezzen be!</h1>
       )
     }
+
+    const [orszagok,setOrszagok] = useState(null);
     const [nev,setNev] = useState();
 
     const [telefon,setTelefon] = useState();
@@ -28,15 +30,23 @@ const ProfileP = () => {
     const [hazszam,setHazszam]=useState();
 
     useEffect(() => {
+        axios.get("https://restcountries.com/v3.1/all")
+        .then((data)=>{
+          setOrszagok(data)
+        })
+
         axios.get("http://localhost:8000/user/me", {
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${token}`
-            }
+          headers: {
+              'Content-Type': 'application/json',
+              'authorization': `Bearer ${token}`
+          }
         },)
-            .then(({ data }) => {
-                setProfile(data)
-            })
+          .then(({ data })=>{
+            setProfile(data)
+
+          })
+        
+        // ide jön a user /me contextből
         axios.get("http://localhost:8000/user/address", {
           headers: {
               'Content-Type': 'application/json',
@@ -68,8 +78,7 @@ const ProfileP = () => {
     })
 
     const saveJelszo=async()=>{
-      toast.error("Ez a funció jelenleg nem elérhető")
-      return;
+
       if (regijelszo==null || regijelszo.length==0 ||ujjelszo==null ||ujjelszo.length==0 || ujjelszoag==null || ujjelszoag.length==0) {
         toast.error("Minden mező kitöltése kötelező!");
         return;
@@ -106,29 +115,57 @@ const ProfileP = () => {
           'Content-Type': 'application/json',
           'authorization': `Bearer ${token}`
         },
-        body:JSON.stringify({"set":ujjelszo})
+        body:JSON.stringify({jelszo:ujjelszo})
       })
       const data=await response.json();
-      console.log(data);
       toast.success("Sikeres jelszó változtatás!")
 
     }
-    const saveTelSzul=()=>{
-      toast.error("Ez a funció jelenleg nem elérhető")
-      return;
-      console.log(telefon);
-      console.log(szuldatum);
+
+    const saveTelSzul=async()=>{
+      if (!telefon && !szuldatum) {
+        toast.error("Minden mező kitöltése kötelező!")
+        return;
+      }
+
+      const response = await fetch("http://localhost:8000/new/changetelszul",{
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${token}`
+        },
+        body:JSON.stringify({telszam:telefon,szuldatum:szuldatum})
+      })
+      const data=await response.json();
+      if (data.id) {
+        toast.success("Sikeres telefonszám és vagy születési dátum változtatás!");
+      } else {
+        toast.error("Mint a két mező kitöltése kötelező!")
+      }
     }
-    const saveDelivery=()=>{
-      toast.error("Ez a funció jelenleg nem elérhető")
-      return;
-      console.log(orszag);
-      console.log(varos);
-      console.log(iranyitoszam);
-      console.log(utca);
-      console.log(hazszam);
+
+    const saveDelivery=async()=>{
+      if (!orszag || !iranyitoszam || !hazszam || !utca || !varos) { 
+        toast.error("Minden adat kitöltétse kötelező!")
+        return;
+      }
+
+      const response = await fetch("http://localhost:8000/new/changedelivery",{
+        method:"POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${token}`
+        },
+        body:JSON.stringify({orszag:orszag,varos:varos,iranyitoszam:Number(iranyitoszam),utca:utca,hazszam:Number(hazszam)})
+      })
+      const data=await response.json();
+      console.log(data)
+      if (data.id) {
+        toast.success("Sikeres adatok változtatása!");
+      } else {
+        toast.error("Sikertelen adat változtatás!");
+      }
     }
-    
   return (
     <>
       <TopBar/>
@@ -182,7 +219,7 @@ const ProfileP = () => {
           </div>
           <div className='flex flex-col'>
             <label>Telefonszám:</label>
-            <input className='p-2' type="number" onChange={()=>{setTelefon(event.target.value)}} defaultValue={profile?.telszam} />
+            <input className='p-2' type="text" onChange={()=>{setTelefon(event.target.value)}} defaultValue={profile?.telszam} />
           </div>
           <div className='flex justify-center items-center'>
             <button onClick={saveTelSzul} className='bg-gray-500 rounded p-3 text-3xl'>
@@ -201,7 +238,16 @@ const ProfileP = () => {
           </div>
           <div className='flex flex-col'>
             <label>Ország:</label>
-            <input className='p-2' type="text" onChange={()=>{setOrzsag(event.target.value)}} defaultValue={delivery && delivery.orszag ? delivery.orszag : ""} />
+            <select className='text-black p-2' name="" id="" onChange={()=>{setOrzsag(event.target.value)}}>
+              <option value={delivery && delivery.orszag ? delivery.orszag : ""}>{delivery && delivery.orszag ? delivery.orszag : ""}</option>
+            {
+              orszagok?.data.map((orszag,index)=>{
+                return(
+                  <option key={index} value={orszag.name.common}>{orszag.name.common}</option>
+                )
+              })
+            }
+            </select>
           </div>
           <div className='flex flex-col'>
             <label>Irányítószám:</label>

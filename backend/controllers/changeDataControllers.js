@@ -26,7 +26,7 @@ const ChangeName= async(req,res)=>{
 }
 
 const ChangePassword= async(req,res)=>{
-    const jelszo=req.body;
+    const {jelszo}=req.body;
     if(!jelszo){
         res.json('Hiányzó adat!');
         return;
@@ -39,7 +39,7 @@ const ChangePassword= async(req,res)=>{
                     id:req.user.id
                 },
                 data:{
-                    hashjelszo
+                    jelszo: hashjelszo
                 }
             }
         )
@@ -49,7 +49,61 @@ const ChangePassword= async(req,res)=>{
     }
 }
 
+const ChangeTelSzul= async(req, res) => {
+    const {telszam,szuldatum} = req.body;
+
+    if (!telszam || !szuldatum) {
+        res.json('Hiányzó adat!');
+        return;
+    }
+    try {
+        const setName = await prisma.user.update(
+            {
+                where:{
+                    id:req.user.id
+                },
+                data:{
+                    telszam:telszam,
+                    szuldatum:szuldatum
+                }
+            }
+        )
+        res.json(setName);
+    } catch (err) {
+        res.json(err.message);
+    }
+}
+
+const ChangeDelivery=async (req, res) => {
+    const {orszag, varos, iranyitoszam,utca,hazszam} = req.body;
+    if (!orszag || !utca || !hazszam || !varos || !iranyitoszam) {
+        res.json('Hiányzó adat!');
+        return;
+    }
+    try {
+        const setDelivery = await prisma.cim.update(
+            {
+                where:{
+                    fid:req.user.id
+                },
+                data:{
+                    orszag:orszag,
+                    varos:varos,
+                    iranyitoszam:iranyitoszam,
+                    utca:utca,
+                    hazszam:hazszam
+                }
+            }
+        )
+        res.json(setDelivery);
+    } catch (err) {
+        res.json(err.message);
+    }
+}
+
 module.exports = {
     ChangeName,
-    ChangePassword
+    ChangePassword,
+    ChangeTelSzul,
+    ChangeDelivery
 }

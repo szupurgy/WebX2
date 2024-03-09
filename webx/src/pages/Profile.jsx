@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import ProfileP from '../components/profile/ProfilePage'
-import axios from 'axios'
 const Profiles = () => {
     return (
         <ProfileP />

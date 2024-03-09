@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,86 +7,68 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id             Int        @id @default(autoincrement())
+model felhasznalok {
+  id             Int          @id @default(autoincrement())
   felhasznalonev String
-  email          String     @unique
+  email          String       
   jelszo         String
   telszam        String
   szuldatum      String
-  cim            cim[]
-  rendeles       rendeles[]
-  kosar          kosar[]
-
-  @@map("Felhasznalok")
+  rendelesek     rendelesek[]
+  szalcimek      szalcimek?
 }
 
-model termek {
-  id       Int        @id @default(autoincrement())
-  nev      String
-  leiras   String
-  ar       Int
-  akcios   Boolean    @default(false)
-  akciosar Int?
-  rendeles rendeles[]
-  kosar    kosar[]
-
-  @@map("Termekek")
+model fizmodok {
+  id         Int          @id @default(autoincrement())
+  tipus      String
+  rendelesek rendelesek[]
 }
 
-model cim {
-  id           Int        @id @default(autoincrement())
+model rendelesek {
+  id           Int          @id @default(autoincrement())
+  datum        DateTime     @default(now())
+  CimID        Int
+  SzalID       Int
+  TmkID        Int
+  fizID        Int
+  floID        Int
+  szalcimek    szalcimek    @relation(fields: [CimID], references: [id], map: "Rendelesek_CimID_fkey")
+  szalmodok    szalmodok    @relation(fields: [SzalID], references: [id], map: "Rendelesek_SzalID_fkey")
+  termekek     termekek     @relation(fields: [TmkID], references: [id], map: "Rendelesek_TmkID_fkey")
+  fizmodok     fizmodok     @relation(fields: [fizID], references: [id], map: "Rendelesek_fizID_fkey")
+  felhasznalok felhasznalok @relation(fields: [floID], references: [id], map: "Rendelesek_floID_fkey")
+
+  @@index([CimID], map: "Rendelesek_CimID_fkey")
+  @@index([SzalID], map: "Rendelesek_SzalID_fkey")
+  @@index([TmkID], map: "Rendelesek_TmkID_fkey")
+  @@index([fizID], map: "Rendelesek_fizID_fkey")
+  @@index([floID], map: "Rendelesek_floID_fkey")
+}
+
+model szalcimek {
+  id           Int          @id @default(autoincrement())
   orszag       String?
   varos        String?
   utca         String?
   hazszam      Int?
   iranyitoszam Int?
-  felhasznalo  user       @relation(fields: [fid], references: [id])
-  fid          Int
-  rendeles     rendeles[]
-
-  @@map("SzalCimek")
+  fid          Int          @unique(map: "SzalCimek_fid_key")
+  rendelesek   rendelesek[]
+  felhasznalok felhasznalok @relation(fields: [fid], references: [id], map: "SzalCimek_fid_fkey")
 }
 
-model Fmod {
-  id       Int        @id @default(autoincrement())
-  tipus    String
-  rendeles rendeles[]
-
-  @@map("FizModok")
+model szalmodok {
+  id         Int          @id @default(autoincrement())
+  tipus      String
+  rendelesek rendelesek[]
 }
 
-model Szmod {
-  id       Int        @id @default(autoincrement())
-  tipus    String
-  rendeles rendeles[]
-
-  @@map("SzalModok")
-}
-
-model rendeles {
-  id          Int      @id @default(autoincrement())
-  datum       DateTime @default(now())
-  Felhasznalo user     @relation(fields: [floID], references: [id])
-  floID       Int
-  Termek      termek   @relation(fields: [TmkID], references: [id])
-  TmkID       Int
-  Cim         cim      @relation(fields: [CimID], references: [id])
-  CimID       Int
-  FizMod      Fmod     @relation(fields: [fizID], references: [id])
-  fizID       Int
-  SzalMod     Szmod    @relation(fields: [SzalID], references: [id])
-  SzalID      Int
-
-  @@map("Rendelesek")
-}
-
-model kosar {
-  id          Int    @id @default(autoincrement())
-  Felhasznalo user   @relation(fields: [floID], references: [id])
-  floID       Int
-  Termek      termek @relation(fields: [TmkID], references: [id])
-  TmkID       Int
-
-  @@map("Kosar")
+model termekek {
+  id         Int          @id @default(autoincrement())
+  nev        String
+  leiras     String
+  ar         Int
+  akcios     Boolean      @default(false)
+  akciosar   Int?
+  rendelesek rendelesek[]
 }

@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg"
 import { CgLogOut } from "react-icons/cg";
 import { FaCartShopping} from "react-icons/fa6";
-import profileMenu from "./profileMenu"
-import axios from 'axios';
 const TopBar = () => {
   const token = localStorage.getItem("token");
-  const [user, setUser] = useState();
   
   if (!token) {
   } else {

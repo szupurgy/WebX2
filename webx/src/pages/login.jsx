@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import axios from "axios"
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
+import userContext from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const Belepes = () => {
-    const belepes= async()=> {
+    const navigate=useNavigate();
+    const {setToken,token}=useContext(userContext);
+    const belepes= async(e)=> {
+        e.preventDefault();
         const email=document.querySelector("#Name").value;
         const jelszo=document.querySelector("#Password").value;
         axios.post("http://localhost:8000/user/login", {
@@ -15,7 +20,6 @@ const Belepes = () => {
         }
     })
         .then((res) => {
-            console.log(res)
             if (res.data=="Hiányzó adat!") {
                 toast.error("Hiányzó adatok!");
             } else if (res.data.message == "Felhasználó nem található!") {
@@ -24,7 +28,8 @@ const Belepes = () => {
                 toast.error("Hibás jelszó!");
             }else{
                 localStorage.setItem("token", res.data.token)
-                location.href = '/home'
+                setToken(res.data.token)
+                navigate("/home",{replace:true})
             }
         })
     }
@@ -39,7 +44,7 @@ const Belepes = () => {
         </div>
         <hr className=' shadow-lg ' />
         <div>
-            <form className='inline-flex w-full' action="login">
+            <form className='inline-flex w-full' onSubmit={belepes}>
                 <div className='w-1/2'>
                     <h1 className='p-2 text-xl'>Felhasználónév:</h1>
                     <input id='Name' type='text' placeholder='Név' className='border rounded-md p-2.5 shadow-md' />
@@ -49,7 +54,7 @@ const Belepes = () => {
                     <a href="signup" className='text-blue-600'>Regisztráció</a>
                     
                         <div className=' flex justify-center items-center'>
-                            <button id='Belepes' onClick={belepes} type="button" className='text-2xl m-6 p-3 border rounded-md bg-green-700'>Belépés!</button>
+                            <button id='Belepes' type="submit" className='text-2xl m-6 p-3 border rounded-md bg-green-700'>Belépés!</button>
                         </div>
                    
                 </div>
