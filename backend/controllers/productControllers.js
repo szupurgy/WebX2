@@ -5,13 +5,13 @@ const arg2= require('argon2');
 const prisma= new PrismaClient();
 
 const getAllProduct= async (req,res)=>{
-    const response= await prisma.termekek.findMany();
+    const response= await prisma.termek.findMany();
     res.json(response);
 }
 
 const getProductById = async (req, res) => {
     const { id } = req.body
-    const product = await prisma.termekek.findUnique({
+    const product = await prisma.termek.findUnique({
         where: {
             id: Number(id)
         }

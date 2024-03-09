@@ -1,12 +1,8 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { IoTrashBin } from "react-icons/io5";
+import React, { useContext, useMemo } from 'react'
 import KosarElem from './KosarElemek';
 import arContext from '../../context/ArContext';
 const KosarPage = () => {
-    const [termekek, setTermekek] = useState(null)
-    const [vantermek, setVanTermek] = useState(true);
-
-    const {ar,setAr,cart, total}=useContext(arContext);
+    const {cart}=useContext(arContext);
     let alma=0;
     useMemo(()=>{
         alma=0
@@ -67,7 +63,7 @@ const KosarPage = () => {
                         <h2 className='p-2 text-xl gap-2 text-indigo-800'><span className='text-2xl text-black font-bold'>Végösszeg:</span> {alma} Ft</h2>
                     </div>
                     <div className='flex justify-end '>
-                        <button className={`${setVanTermek ? "flex" : "hidden"} border bg-slate-300 border-slate-400 rounded-s-md p-2 w-20 duration-300 after:content-["Vásárlás"] hover:after:content-["Tovább_az_adatok_megadásához"] h-10 text-nowrap hover:w-64`}></button>
+                        <button className={`border bg-slate-300 border-slate-400 rounded-s-md p-2 w-20 duration-300 after:content-["Vásárlás"] hover:after:content-["Tovább_az_adatok_megadásához"] h-10 text-nowrap hover:w-64`}></button>
                     </div>
                 </div>
             </div>

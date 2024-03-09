@@ -1,6 +1,6 @@
 const {PrismaClient, Prisma} = require("@prisma/client");
 const jwt=require("jsonwebtoken");
-const arg2= require('argon2');
+const arg2 = require('argon2');
 
 const prisma= new PrismaClient();
 
@@ -55,7 +55,7 @@ const login= async (req,res)=>{
         res.json('Hiányzó adat!');
         return;
     }
-    const user= await prisma.user.findUnique({
+    const user= await prisma.user.findFirst({
         where:{
             email:email
         }
@@ -97,7 +97,7 @@ const emailCheck= async (req,res)=>{
         res.json('Hiányzó adat!');
         return;
     }
-    const user= await prisma.user.findUnique({
+    const user= await prisma.user.findFirst({
         where:{
             email:email
         }
