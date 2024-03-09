@@ -17,7 +17,7 @@ const TInfo = ({ data }) => {
     } else {
       setCart([...cart,{ ...data,darab:1}])
     }
-    
+    toast.success("Termék sikeres a kosárhoz adva!");
   }
   return (
     <>
