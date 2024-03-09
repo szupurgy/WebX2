@@ -8,7 +8,6 @@ const KosarPage = () => {
 
     const {ar,setAr,cart, total}=useContext(arContext);
     let alma=0;
-    const [vegosszeg, setVegosszeg ]=useState(0);
     useMemo(()=>{
         alma=0
         cart.map((i)=>{
