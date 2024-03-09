@@ -12,6 +12,7 @@ import Kosar from './pages/kosar'
 import Profiles from './pages/Profile'
 import { ArContext } from './context/ArContext'
 import { UserContext } from './context/UserContext'
+import PlaceOrder from './pages/PlaceOrder'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path='/profile' element={<Profiles />} />
               <Route path='/logout' element={<LogOut />} />
               <Route path='/kosar' element={<Kosar />} />
+              <Route path='/placeorder' element={<PlaceOrder/>}/>
               <Route path='*' element={<NoPage />} />
             </Routes>
           </UserContext>
