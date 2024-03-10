@@ -6,7 +6,6 @@ export const ArContext = ({ children }) => {
     const [ar, setAr] = useState(0);
     const [total, setTotal] = useState(0);
     const [cart, setCart] = useState(null);
-    const token = localStorage.getItem('token');
 
     useMemo(()=>{
         setCart(JSON.parse(localStorage.getItem('cart')) || []);

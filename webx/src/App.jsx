@@ -13,6 +13,7 @@ import Profiles from './pages/Profile'
 import { ArContext } from './context/ArContext'
 import { UserContext } from './context/UserContext'
 import PlaceOrder from './pages/PlaceOrder'
+import { FizetesContext } from './context/FizetesContext'
 
 function App() {
   return (
@@ -20,20 +21,22 @@ function App() {
       <BrowserRouter>
         <ArContext>
           <UserContext>
-            <Toaster />
-            <Routes>
-              <Route index element={<HomePage />} />
-              <Route path='/home' element={<HomePage />} />
-              <Route path='/login' element={<Belepes />} />
-              <Route path='/signup' element={<SignUp />} />
-              <Route path='/products' element={<Products />} />
-              <Route path='/info/:id' element={<TermekOldal />} />
-              <Route path='/profile' element={<Profiles />} />
-              <Route path='/logout' element={<LogOut />} />
-              <Route path='/kosar' element={<Kosar />} />
-              <Route path='/placeorder' element={<PlaceOrder/>}/>
-              <Route path='*' element={<NoPage />} />
-            </Routes>
+            <FizetesContext>
+              <Toaster />
+              <Routes>
+                <Route index element={<HomePage />} />
+                <Route path='/home' element={<HomePage />} />
+                <Route path='/login' element={<Belepes />} />
+                <Route path='/signup' element={<SignUp />} />
+                <Route path='/products' element={<Products />} />
+                <Route path='/info/:id' element={<TermekOldal />} />
+                <Route path='/profile' element={<Profiles />} />
+                <Route path='/logout' element={<LogOut />} />
+                <Route path='/kosar' element={<Kosar />} />
+                <Route path='/placeorder' element={<PlaceOrder />} />
+                <Route path='*' element={<NoPage />} />
+              </Routes>
+            </FizetesContext>
           </UserContext>
         </ArContext>
       </BrowserRouter>

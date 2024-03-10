@@ -17,7 +17,7 @@ export const UserContext = ({ children }) => {
                     setUser(data)
                 })
         }
-    }, [token])
+    }, [])
 
     return <userContext.Provider value={
         {
