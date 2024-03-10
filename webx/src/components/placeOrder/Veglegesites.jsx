@@ -50,6 +50,21 @@ const OrderPlace = () => {
             return;
         }
 
+        cart && cart.map((termek, index) => {
+            axios.post("http://localhost:8000/order/MakeOrder", {
+                tmkid:termek.id,
+                szalmod:sztipus,
+                fizmod:ftipus
+            },{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${token}`
+                }
+            }) .then(({data})=>{
+                console.log(data);
+            })
+        })
+        toast.success("Sikeres rendelés!")
         
     }
     return (
