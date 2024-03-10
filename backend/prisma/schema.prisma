@@ -49,22 +49,6 @@ model cim {
   @@map("SzalCimek")
 }
 
-model Fmod {
-  id       Int        @id @default(autoincrement())
-  tipus    String
-  rendeles rendeles[]
-
-  @@map("FizModok")
-}
-
-model Szmod {
-  id       Int        @id @default(autoincrement())
-  tipus    String
-  rendeles rendeles[]
-
-  @@map("SzalModok")
-}
-
 model rendeles {
   id          Int      @id @default(autoincrement())
   datum       DateTime @default(now())
@@ -74,10 +58,8 @@ model rendeles {
   TmkID       Int
   Cim         cim      @relation(fields: [CimID], references: [id])
   CimID       Int
-  FizMod      Fmod     @relation(fields: [fizID], references: [id])
-  fizID       Int
-  SzalMod     Szmod    @relation(fields: [SzalID], references: [id])
-  SzalID      Int
+  fizMod      String
+  SzalMod     String
 
   @@map("Rendelesek")
 }
