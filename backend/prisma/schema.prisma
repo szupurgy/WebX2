@@ -50,16 +50,19 @@ model cim {
 }
 
 model rendeles {
-  id          Int      @id @default(autoincrement())
-  datum       DateTime @default(now())
-  Felhasznalo user     @relation(fields: [floID], references: [id])
-  floID       Int
-  Termek      termek   @relation(fields: [TmkID], references: [id])
-  TmkID       Int
-  Cim         cim      @relation(fields: [CimID], references: [id])
-  CimID       Int
-  fizMod      String
-  SzalMod     String
+  id                Int      @id @default(autoincrement())
+  datum             DateTime @default(now())
+  Felhasznalo       user     @relation(fields: [floID], references: [id])
+  floID             Int
+  Termek            termek   @relation(fields: [TmkID], references: [id])
+  TmkID             Int
+  Cim               cim      @relation(fields: [CimID], references: [id])
+  CimID             Int
+  fizMod            String
+  SzalMod           String
+  mennyiseg         Int      @default(1)
+  jelenlegiar       Int
+  rendelesazonosito String
 
   @@map("Rendelesek")
 }

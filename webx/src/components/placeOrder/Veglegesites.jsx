@@ -1,20 +1,25 @@
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import arContext from '../../context/ArContext'
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import fizetesContext from '../../context/FizetesContext';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import toast from "react-hot-toast"
+import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
 const OrderPlace = () => {
+    const navigate=useNavigate();
     const { cart } = useContext(arContext)
-    let alma = 0;
-    useMemo(() => {
-        alma = 0
-        cart.map((i) => {
-            alma += i.ar * i.darab
+    const [vegar, setVegar] = useState()
+    let vegosszeg = 0;
+    useMemo(()=>{
+        vegosszeg=0
+        cart.map((i)=>{
+            let ar = `${i.akcios ? i.ar-(i.ar *(i.akciosar / 100)) : i.ar}`
+            setVegar(vegosszeg+=ar*i.darab)
         })
-    }, [cart])
+    },[cart])
 
     const [arrow, setarrow] = useState(false);
     const { szalmodok, fizmodok } = useContext(fizetesContext)
@@ -43,18 +48,20 @@ const OrderPlace = () => {
     const [ftipus, SetFtipus] = useState();
 
     const CheckData = () => {
-        console.log(sznev,irszam,varos,utca,hazszam)
-        console.log(sztipus,ftipus)
         if (!sznev || !irszam || !varos || !hazszam || !utca || !sztipus || !ftipus) {
             toast.error("Minden adat kitöltése kötelező!")
             return;
         }
-
+        const rendelesid = uuidv4();
+        console.log(rendelesid)
         cart && cart.map((termek, index) => {
             axios.post("http://localhost:8000/order/MakeOrder", {
                 tmkid:termek.id,
                 szalmod:sztipus,
-                fizmod:ftipus
+                fizmod:ftipus,
+                jelenlegiar:termek.ar,
+                mennyiseg:termek.darab,
+                rendelesazonosito: rendelesid
             },{
                 headers: {
                     'Content-Type': 'application/json',
@@ -62,6 +69,7 @@ const OrderPlace = () => {
                 }
             }) .then(({data})=>{
                 console.log(data);
+                navigate(`/success:${rendelesid}`,{replace:true})
             })
         })
         toast.success("Sikeres rendelés!")
@@ -161,11 +169,15 @@ const OrderPlace = () => {
                                 <img src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png" className='w-10 h-10' />
                                 <div>
                                     <a href={`/info/${termek.id}`} key={index}>{termek.nev}</a>
-                                    <h2 className='text-indigo-800'>{termek.ar} Ft</h2>
+                                    <h2 className='text-indigo-800'>{termek?.akcios ? (termek.ar-(termek.ar * (termek.akciosar / 100))) * termek.darab : (termek.ar) * termek.darab} Ft</h2>
                                 </div>
                             </div>
                         ))
                     }
+                    <hr />
+                    <dir className="-mt-0">
+                        <h1 className='text-indigo-800 text-xl'>{vegar}ft</h1>
+                    </dir>
                 </div>
             </div>
         </>

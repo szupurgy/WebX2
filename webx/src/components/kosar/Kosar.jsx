@@ -1,14 +1,16 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import toast from "react-hot-toast"
 import KosarElem from './KosarElemek';
 import arContext from '../../context/ArContext';
 const KosarPage = () => {
     const {cart}=useContext(arContext);
-    let alma=0;
+    const [vegar, setVegar] = useState()
+    let vegosszeg = 0;
     useMemo(()=>{
-        alma=0
+        vegosszeg=0
         cart.map((i)=>{
-            alma+=i.ar*i.darab
+            let ar = `${i.akcios ? i.ar-(i.ar *(i.akciosar / 100)) : i.ar}`
+            setVegar(vegosszeg+=ar*i.darab)
         })
     },[cart])
 
@@ -67,7 +69,7 @@ const KosarPage = () => {
                             }
                         </div>
                         <hr className='mx-5' />
-                        <h2 className='p-2 text-xl gap-2 text-indigo-800'><span className='text-2xl text-black font-bold'>Végösszeg:</span> {alma} Ft</h2>
+                        <h2 className='p-2 text-xl gap-2 text-indigo-800'><span className='text-2xl text-black font-bold'>Végösszeg:</span> {vegar} Ft</h2>
                     </div>
                     <div className='flex justify-end '>
                         <button onClick={veglegesit} className={`border bg-slate-300 border-slate-400 rounded-s-md p-2 w-20 duration-300 after:content-["Vásárlás"] hover:after:content-["Tovább_az_adatok_megadásához"] h-10 text-nowrap hover:w-64`}></button>

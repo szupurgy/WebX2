@@ -14,6 +14,7 @@ import { ArContext } from './context/ArContext'
 import { UserContext } from './context/UserContext'
 import PlaceOrder from './pages/PlaceOrder'
 import { FizetesContext } from './context/FizetesContext'
+import SuccessOrderPage from './pages/SuccessOrderPage'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                 <Route path='/logout' element={<LogOut />} />
                 <Route path='/kosar' element={<Kosar />} />
                 <Route path='/placeorder' element={<PlaceOrder />} />
+                <Route path='/success/:id' element={<SuccessOrderPage/>}/>
                 <Route path='*' element={<NoPage />} />
               </Routes>
             </FizetesContext>

@@ -33,8 +33,8 @@ const TInfo = ({ data }) => {
             <h1 onClick={kosarba} className='text-center w-full md:w-1/2 flex justify-center items-center cursor-pointer bg-stone-400 p-3 rounded-2xl text-3xl font-semibold font-sans'>Kosárba</h1>
           </div>
           <hr className='mx-5 mt-2' />
-          <h1 className={`text-4xl mx-5 ${data?.akcios ? "line-through font-normal text-xl text-red-700" : "text-green-600 font-bold"}`}>{data?.ar} Ft</h1>
-          <h1 className={`text-green-500 text-4xl mx-5 font-bold ${data?.akcios ? "" : "hidden"} `}>{data?.ar*(data?.akciosar/100)} Ft</h1>
+          <h1 className={`text-4xl mx-5 ${data?.akcios ? "line-through font-normal text-xl text-red-700" : "text-green-600 font-bold"}`}>{data?.ar} Ft</h1><span className={`${data?.akcios ? "flex" : "hidden"} no-underline text-2xl p-5 flex justify-end absolute -mt-3 right-0 font-normal text-black`}>-{data?.akcios ? data?.akciosar : ""} %</span>
+          <h1 className={`text-green-500 text-4xl mx-5 font-bold ${data?.akcios ? "" : "hidden"} `}>{data?.akcios ? (data?.ar-(data?.ar * (data?.akciosar / 100))) : (data?.ar)} Ft</h1>
           <h2 className='mx-5'>Garancia: 12 hónap</h2>
         </div>
       </div>
