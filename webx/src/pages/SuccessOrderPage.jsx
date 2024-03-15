@@ -9,7 +9,6 @@ const SuccessOrderPage = () => {
   return (
     <>
         <TopBar/>
-        <div className='h-24'></div>
         <Szamla/>
     </>
   )

@@ -15,6 +15,8 @@ import { UserContext } from './context/UserContext'
 import PlaceOrder from './pages/PlaceOrder'
 import { FizetesContext } from './context/FizetesContext'
 import SuccessOrderPage from './pages/SuccessOrderPage'
+import AdminPanel from './pages/AdminPanel'
+import AdminDashBoard from './pages/AdminDashboard'
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
                 <Route path='/kosar' element={<Kosar />} />
                 <Route path='/placeorder' element={<PlaceOrder />} />
                 <Route path='/success/:id' element={<SuccessOrderPage/>}/>
+                <Route path='/admin' element={<AdminPanel/>}/>
+                <Route path='/admindashboard' element={<AdminDashBoard />} />
                 <Route path='*' element={<NoPage />} />
               </Routes>
             </FizetesContext>

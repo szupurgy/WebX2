@@ -24,13 +24,14 @@ model user {
 }
 
 model termek {
-  id       Int        @id @default(autoincrement())
-  nev      String
-  leiras   String
-  ar       Int
-  akcios   Boolean    @default(false)
-  akciosar Int?
-  rendeles rendeles[]
+  id          Int           @id @default(autoincrement())
+  nev         String
+  leiras      String
+  ar          Int
+  akcios      Boolean       @default(false)
+  akciosar    Int?
+  rendeles    rendeles[]
+  termekkepek termekkepek[]
 
   @@map("Termekek")
 }
@@ -65,4 +66,19 @@ model rendeles {
   rendelesazonosito String
 
   @@map("Rendelesek")
+}
+
+model termekkepek {
+  id     Int    @id @default(autoincrement())
+  Termek termek @relation(fields: [TmkID], references: [id])
+  TmkID  Int
+  kep    String
+
+  @@map("eleresek")
+}
+
+model admin {
+  id     Int    @id @default(autoincrement())
+  nev    String
+  jelszo String
 }

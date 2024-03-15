@@ -169,11 +169,11 @@ const ProfileP = () => {
       <TopBar />
 
       {/* nev modositas */}
-      <div className='w-screen bg-slate-200 h-full'>
+      <div className='w-screen bg-slate-100 h-full'>
         <div className='h-24'></div>
-        <div className='w-full flex items-center justify-center text-4xl'>Adatlap</div>
+        <div className='w-full flex items-center justify-center text-4xl p-2'>Adatlap</div>
         <hr className='bg-white mx-5 h-1' />
-        <div className='border border-white mt-5 mx-5 p-2 gap-3 flex flex-col'>
+        <div className='border border-white mt-5 mx-5 p-2 gap-3 flex flex-col bg-gray-200'>
           <div className='flex flex-col'>
             <label>Név:</label>
             <input className='p-2' type="text" onChange={() => { setNev(event.target.value) }} defaultValue={profile?.felhasznalonev} />
@@ -189,7 +189,7 @@ const ProfileP = () => {
           </div>
         </div>
         {/* jelszo modositas */}
-        <div className='border border-white mt-5 mx-5 p-2 gap-3 flex flex-col'>
+        <div className='border border-white mt-5 mx-5 p-2 gap-3 flex flex-col bg-gray-200'>
           <div className='flex flex-col'>
             <label>Régi jelszó:</label>
             <input className='p-2' type="password" onChange={() => { setRegiJelszo(event.target.value) }} />
@@ -210,7 +210,7 @@ const ProfileP = () => {
         </div>
 
         {/* szuldatum,telszam */}
-        <div className='border border-white mt-5 mx-5 p-2 gap-3 flex flex-col'>
+        <div className='border border-white mt-5 mx-5 p-2 gap-3 flex flex-col bg-gray-200'>
           <div className='flex flex-col'>
             <label>Szütelési dátum:</label>
             <input className='p-2' type="text" onChange={() => { setSzuldatum(event.target.value) }} defaultValue={profile?.szuldatum} />
@@ -226,7 +226,7 @@ const ProfileP = () => {
           </div>
         </div>
 
-        <div className='border border-white mt-5 mx-5 p-2 gap-3 flex flex-col'>
+        <div className='border border-white mt-5 mx-5 p-2 gap-3 flex flex-col bg-gray-200'>
           <div>
             <h1 className='flex justify-center items-cente text-2xl'>Szállítási cím</h1>
           </div>
