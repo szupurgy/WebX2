@@ -50,9 +50,42 @@ const AdminLogin = async (req, res) => {
     res.json({token:token});
 }
 
+const alltermek= async(req,res) => {
+    const termek = await prisma.termek.findMany();
+    res.json(termek);
+}
 
+const AddProduct = async(req, res) => {
+    const {nev,leiras,ar,akcios,akciosar} = req.body;
+    if (!nev || !leiras || !ar || !akciosar) {
+        console.log(req.body);
+        res.json("Hiányzó adatok!");
+        return;
+    }
+    const termek = await prisma.termek.create({
+        data:{
+            nev:nev,
+            leiras:leiras,
+            ar:Number(ar),
+            akcios:Boolean(akcios),
+            akciosar:Number(akciosar)
+        }
+    })
+    res.json(termek);
+}
+
+const RemoveTermek = async(req,res) => {
+    const {id}=req.body;
+    if(!id){
+        res.json("Hiányzó adat!");
+        return;
+    }
+    
+}
 
 module.exports = {
     CreateAdmin,
-    AdminLogin
+    AdminLogin,
+    AddProduct,
+    alltermek
 }

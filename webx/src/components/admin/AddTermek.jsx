@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {useDropzone} from 'react-dropzone';
 import { GiCloudUpload } from "react-icons/gi";
+import toast from "react-hot-toast"
 const AddTermek = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const { getRootProps, getInputProps } = useDropzone({
@@ -9,6 +10,59 @@ const AddTermek = () => {
             setUploadedFiles(acceptedFiles);
         },
     })
+    const [termeknev,settermeknev]= useState();
+    const [termekleiras,settermekleiras]= useState();
+    const [ar,setar]= useState();
+    const [akcios,setakcios]= useState();
+    const [akciosar,setakciosar]= useState();
+    let akc=0;
+    const felvisz = async()=>{
+        if (uploadedFiles == [] || uploadedFiles.length==0) {
+            toast.error("A kép feltöltése kötelező!")
+            return;
+        }
+        if (termeknev == null || termeknev.length == 0 || termekleiras == null || termekleiras.length == 0 || ar == null || ar.length == 0) {
+            toast.error("Minden mező kitöltése kötelező")
+        }
+        if (akcios == null) {
+            toast.error("Adja meg, hogy akciós-e ")
+            return
+        }
+        if (akciosar == null) {
+            toast.error("Adja meg az akció értékét!")
+        }
+        if (akcios==true) {
+            akc=1
+        }
+        const termekfel= await fetch("http://localhost:8000/admin/addproduct",{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                nev: termeknev,
+                leiras: termekleiras,
+                ar: Number(ar),
+                akcios: Boolean(akc),
+                akciosar: akciosar
+            })
+        })
+        const data= await termekfel.json();
+        console.log(data)
+        const termekid= data.id;
+        const keptotermek= await fetch("http://localhost:8000/upload",{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                TmkID: termekid,
+                file: uploadedFiles
+            })
+        })
+        const res= await keptotermek.json();
+        console.log(res);
+    }   
     return (
         <div className='w-full flex flex-col p-2 m-5 h-full'>
             <div className='flex justify-center items-center'>
@@ -19,34 +73,34 @@ const AddTermek = () => {
                     <tr>
                         <td>Termék neve:</td>
                         <td>
-                            <input type="text" placeholder='Termék neve' />
+                            <input type="text" onChange={()=>{settermeknev(event.target.value)}} placeholder='Termék neve' />
                         </td>
                     </tr>
                     <tr>
                         <td>Termék leírása:</td>
                         <td>
-                            <textarea type="text" placeholder="Termék leírása" />
+                            <textarea type="text" onChange={()=>{settermekleiras(event.target.value)}} placeholder="Termék leírása" />
                         </td>
                     </tr>
                     <tr>
                         <td>Termék ára:</td>
                         <td>
-                            <input type="number" placeholder="Ár" />
+                            <input type="number" onChange={()=>{setar(event.target.value)}} placeholder="Ár" />
                         </td>
                     </tr>
                     <tr>
                         <td>Akciós:</td>
                         <td className='flex'>
-                            <input type="radio" className='bg-stone-600 w-full text-xl' value={true} name='akcios' />
+                            <input type="radio" onChange={()=>{setakcios(event.target.value)}} className='bg-stone-600 w-full text-xl' value={true} name='akcios' />
                             <label className='flex justify-center items-center'>Akciós</label>
-                            <input type="radio" className='bg-stone-600 w-full text-xl' value={false} name='akcios' />
+                            <input type="radio" onChange={()=>{setakcios(event.target.value)}} className='bg-stone-600 w-full text-xl' value={false} name='akcios' />
                             <label className='flex justify-center items-center'>Nem akciós</label>
                         </td>
                     </tr>
                     <tr>
                         <td>Akció mértéke: %</td>
                         <td>
-                            <input type="text" placeholder='Akció mértéke' />
+                            <input type="text" onChange={()=>{setakciosar(event.target.value)}} placeholder='Akció mértéke' />
                         </td>
                     </tr>
                 </table>
@@ -61,7 +115,7 @@ const AddTermek = () => {
                     </ul>
                 </div>
                 <div className='flex mt-5 justify-center items-center'>
-                    <button className='bg-gray-500 rounded p-3 text-3xl'>
+                    <button onClick={felvisz} className='bg-gray-500 rounded p-3 text-3xl'>
                         Termék hozzáadása
                     </button>
                 </div>
