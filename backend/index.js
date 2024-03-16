@@ -69,8 +69,6 @@ app.post("/upload", uploads.single('image'), async (req, res) => {
         })
         res.json(kepfeltoltes);
     }
-
-
 })
 
 app.get("/getkep/:name", async(req, res) => {

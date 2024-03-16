@@ -10,9 +10,15 @@ const RemoveTermek = () => {
         }
         termekek()
     })
-    const torol= (id)=>{
+    const torol= async(id)=>{
         console.log(id);
-        
+        const deltermek= await fetch("http://localhost:8000/admin/delete",{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({id})
+        })
     }
     return ( 
         <div className='w-full p-2 m-5 h-full overflow-y-scroll grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
@@ -22,7 +28,7 @@ const RemoveTermek = () => {
                         <div className='w-44 h-44 rounded ring-2 bg-gray-600' key={index}>
                             <div className='flex'>
                                 <img src="logo.png" className='w-3/4 h-32' alt="" />
-                                <MdDeleteForever onClick={()=>{torol(termek.id)}} className='text-white w-1/4 text-end flex justify-end size-10 items-end'/>
+                                <MdDeleteForever onClick={()=>{torol(termek.id)}} className='text-white cursor-pointer w-1/4 text-end flex justify-end size-10 items-end'/>
                             </div>
                             <div>
                                 <h1>{termek.nev}</h1>

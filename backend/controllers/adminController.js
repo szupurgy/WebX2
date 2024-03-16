@@ -80,12 +80,22 @@ const RemoveTermek = async(req,res) => {
         res.json("Hiányzó adat!");
         return;
     }
-    
+    try {
+        const termektorol= await prisma.termek.delete({
+            where:{
+                id:id
+            }
+        })
+        res.json("Sikeres törlés")
+    } catch (err) {
+        res.json(err.message)
+    }
 }
 
 module.exports = {
     CreateAdmin,
     AdminLogin,
     AddProduct,
-    alltermek
+    alltermek,
+    RemoveTermek
 }

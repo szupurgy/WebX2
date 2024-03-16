@@ -50,19 +50,25 @@ const AddTermek = () => {
         const data= await termekfel.json();
         console.log(data)
         const termekid= data.id;
+        const formdata = new FormData()
+        Array.from(uploadedFiles).map((file) => {
+          formdata.append('file',file)
+        })
+        
         const keptotermek= await fetch("http://localhost:8000/upload",{
             method:"POST",
             headers:{
                 'Content-Type':'application/json'
             },
-            body: JSON.stringify({
+            body:JSON.stringify({
                 TmkID: termekid,
-                file: uploadedFiles
+                image: uploadedFiles
             })
         })
+        console.log("halo")
         const res= await keptotermek.json();
         console.log(res);
-    }   
+    }
     return (
         <div className='w-full flex flex-col p-2 m-5 h-full'>
             <div className='flex justify-center items-center'>
