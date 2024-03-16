@@ -74,6 +74,30 @@ const AddProduct = async(req, res) => {
     res.json(termek);
 }
 
+const GetAdminChat= async(req,res)=>{
+    const chat=await prisma.adminchat.findMany()
+    res.json(chat);
+}
+
+const GetAdmin= async(req,res)=>{
+    res.json(req.user)
+}
+
+const AdminChatSendMessage=async(req,res)=>{
+    const {text} = req.body;
+    if(!text){
+        res.json("Hiányzó adat!");
+        return;
+    }
+    const kuldes= await prisma.adminchat.create({
+        data:{
+            userid: req.user.id,
+            message: text,
+        }
+    })
+    res.json(kuldes);
+}
+
 const RemoveTermek = async(req,res) => {
     const {id}=req.body;
     if(!id){
@@ -92,10 +116,25 @@ const RemoveTermek = async(req,res) => {
     }
 }
 
+const Rendelesek= async(req,res)=>{
+    const rendelesek = await prisma.rendeles.findMany();
+    res.json(rendelesek)
+}
+
+const Felhasznalok= async(req,res) => {
+    const fiok = await prisma.user.findMany();
+    res.json(fiok);
+}
+
 module.exports = {
     CreateAdmin,
     AdminLogin,
     AddProduct,
     alltermek,
-    RemoveTermek
+    RemoveTermek,
+    Rendelesek,
+    Felhasznalok,
+    AdminChatSendMessage,
+    GetAdminChat,
+    GetAdmin
 }

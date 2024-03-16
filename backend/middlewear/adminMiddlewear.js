@@ -8,11 +8,12 @@ const protect = async(req,res,next)=>{
         try{
             token=req.headers.authorization.split(' ')[1];
             const idFromToken=jwt.verify(token, process.env.JWT_SECRET);
-            req.user= await prisma.user.findUnique({
+            req.user= await prisma.admin.findUnique({
                 where:{
                     id:idFromToken.id
                 },
                 select:{
+                    id:true,
                     nev:true
                 }
             });

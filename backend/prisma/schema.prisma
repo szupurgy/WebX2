@@ -68,6 +68,15 @@ model rendeles {
   @@map("Rendelesek")
 }
 
+model adminchat {
+  id      Int      @id @default(autoincrement())
+  userid  Int
+  message String   @db.LongText
+  datum   DateTime @default(now())
+
+  @@map("AdminChat")
+}
+
 model termekkepek {
   id     Int    @id @default(autoincrement())
   Termek termek @relation(fields: [TmkID], references: [id])

@@ -44,7 +44,7 @@ const Home = () => {
                         })
                     }
                 </div>
-                <h1 className='text-2xl font-bold'>Legújabb termékek:</h1>
+                <h1 className='text-2xl font-bold'>Legújabb termék:</h1>
                 <div className='flex border justify-center items-center bg-gray-50'>
                     {
                         termekek && termekek.map((termek, index) => {

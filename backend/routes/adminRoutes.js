@@ -1,14 +1,21 @@
 const express=require('express');
 const router = express.Router();
 
-const {protect}=require("../middlewear/adminMiddlewear");
+const { protect }=require("../middlewear/adminMiddlewear");
 
-const {CreateAdmin, AdminLogin, AddProduct, alltermek, RemoveTermek}= require("../controllers/adminController")
+const {CreateAdmin, AdminLogin, AddProduct, alltermek, RemoveTermek,
+    Rendelesek, Felhasznalok, AdminChatSendMessage,
+    GetAdminChat,GetAdmin}= require("../controllers/adminController")
 
 router.post("/addadmin" , CreateAdmin);
 router.post("/login", AdminLogin);
 router.post("/addproduct",AddProduct);
 router.get('/alltermek',alltermek);
 router.post("/delete",RemoveTermek)
+router.get('/rendelesek',Rendelesek)
+router.get('/users',Felhasznalok)
+router.post('/sendmsg',protect,AdminChatSendMessage)
+router.get('/chat',GetAdminChat)
+router.post('/who',protect,GetAdmin)
 
 module.exports= router;
