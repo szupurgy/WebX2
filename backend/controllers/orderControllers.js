@@ -36,6 +36,33 @@ const MakeOrder = async (req, res) => {
     }
 }
 
+const GetOrderData= async(req, res) => {
+    const {id}=req.params;
+    if (!id) {
+        res.json('Nincs rendelés azonosító!');
+        return;
+    }
+    const getrendeles= await prisma.rendeles.findFirst({
+        where: {
+            rendelesazonosito: id
+        },
+        select:{
+            id:true,
+            Cim:true,
+            Termek:true,
+            Felhasznalo:true,
+            SzalMod:true,
+            fizMod:true,
+            jelenlegiar:true,
+            mennyiseg:true,
+            rendelesazonosito:true
+        }
+    })
+    res.json(getrendeles);
+}
+
+
 module.exports = {
-    MakeOrder
+    MakeOrder,
+    GetOrderData
 }

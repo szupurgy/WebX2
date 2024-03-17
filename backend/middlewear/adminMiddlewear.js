@@ -17,7 +17,6 @@ const protect = async(req,res,next)=>{
                     nev:true
                 }
             });
-            console.log(req.user)
             next();
         } catch(error){
             res.status(401).json({message:"Gondok vannak!"})

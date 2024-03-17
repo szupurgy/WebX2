@@ -2,9 +2,11 @@ import React, { useContext, useMemo, useState } from 'react'
 import toast from "react-hot-toast"
 import KosarElem from './KosarElemek';
 import arContext from '../../context/ArContext';
+import axios from 'axios';
 const KosarPage = () => {
     const {cart}=useContext(arContext);
     const [vegar, setVegar] = useState()
+    const [user,setUser]= useState()
     let vegosszeg = 0;
     useMemo(()=>{
         vegosszeg=0
@@ -20,6 +22,20 @@ const KosarPage = () => {
             <h1 className='text-4xl w-screen flex justify-center items-center bg-slate-100 h-screen  text-center md:text-start'>A kosárhoz jelentkezzen be!</h1>
         )
     }
+    useMemo(() => {
+        axios.get("http://localhost:8000/user/me", {
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${token}`
+            }
+        },)
+            .then(({ data }) => {
+                setUser(data)
+                if (data==null) {
+                    localStorage.removeItem("token")
+                }
+            })
+    }, [])
     
     const elem = () => {
         if (cart == null || cart.length == 0) {

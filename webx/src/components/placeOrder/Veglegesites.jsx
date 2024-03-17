@@ -9,17 +9,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
 const OrderPlace = () => {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const { cart } = useContext(arContext)
     const [vegar, setVegar] = useState()
     let vegosszeg = 0;
-    useMemo(()=>{
-        vegosszeg=0
-        cart.map((i)=>{
-            let ar = `${i.akcios ? i.ar-(i.ar *(i.akciosar / 100)) : i.ar}`
-            setVegar(vegosszeg+=ar*i.darab)
+    useMemo(() => {
+        vegosszeg = 0
+        cart.map((i) => {
+            let ar = `${i.akcios ? i.ar - (i.ar * (i.akciosar / 100)) : i.ar}`
+            setVegar(vegosszeg += ar * i.darab)
         })
-    },[cart])
+    }, [cart])
 
     const [arrow, setarrow] = useState(false);
     const { szalmodok, fizmodok } = useContext(fizetesContext)
@@ -44,7 +44,7 @@ const OrderPlace = () => {
     const [utca, SetUtca] = useState();
     const [hazszam, SetHazszam] = useState();
 
-    const [sztipus,SetSztipus] = useState();
+    const [sztipus, SetSztipus] = useState();
     const [ftipus, SetFtipus] = useState();
 
     const CheckData = () => {
@@ -54,26 +54,30 @@ const OrderPlace = () => {
         }
         const rendelesid = uuidv4();
         console.log(rendelesid)
-        cart && cart.map((termek, index) => {
-            axios.post("http://localhost:8000/order/MakeOrder", {
-                tmkid:termek.id,
-                szalmod:sztipus,
-                fizmod:ftipus,
-                jelenlegiar:termek.ar,
-                mennyiseg:termek.darab,
-                rendelesazonosito: rendelesid
-            },{
+        cart && cart.map(async (termek, index) => {
+            const rendelesleadas = await fetch("http://localhost:8000/order/MakeOrder", {
+                method:"POST",
                 headers: {
                     'Content-Type': 'application/json',
                     'authorization': `Bearer ${token}`
-                }
-            }) .then(({data})=>{
-                console.log(data);
-                navigate(`/success:${rendelesid}`,{replace:true})
+                },
+                body: JSON.stringify({
+                    tmkid: termek.id,
+                    szalmod: sztipus,
+                    fizmod: ftipus,
+                    jelenlegiar: termek.ar,
+                    mennyiseg: termek.darab,
+                    rendelesazonosito: rendelesid
+                })
             })
+            const data = await rendelesleadas.json();
+            console.log(data);
+            if (data=="Sikeres megrendelés") {
+                navigate('/success/'+rendelesid)
+            }
+            
         })
         toast.success("Sikeres rendelés!")
-        
     }
     return (
         <>
@@ -88,7 +92,7 @@ const OrderPlace = () => {
                                     return (
                                         <div className='gap-2 flex justify-between' key={index}>
                                             <div className='gap-2 flex'>
-                                                <input type='radio' onClick={()=>{SetSztipus(event.target.value)}} name='tipus' id={`tipus${index}`} key={index} value={item.tipus} />
+                                                <input type='radio' onClick={() => { SetSztipus(event.target.value) }} name='tipus' id={`tipus${index}`} key={index} value={item.tipus} />
                                                 <label htmlFor={`tipus${index}`}>{item.tipus}</label>
                                             </div>
                                             <label htmlFor={`tipus${index}`}>{item.ár} Ft</label>
@@ -110,7 +114,7 @@ const OrderPlace = () => {
                                     return (
                                         <div className='gap-2 flex justify-between' key={index}>
                                             <div className='gap-2 flex'>
-                                                <input type='radio' onClick={()=>{SetFtipus(event.target.value)}} name='ftipus' id={`ftipus${index}`} key={index} value={item.tipus} />
+                                                <input type='radio' onClick={() => { SetFtipus(event.target.value) }} name='ftipus' id={`ftipus${index}`} key={index} value={item.tipus} />
                                                 <label htmlFor={`ftipus${index}`}>{item.tipus}</label>
                                             </div>
                                             <label htmlFor={`ftipus${index}`}>{item.ár} Ft</label>
@@ -127,11 +131,11 @@ const OrderPlace = () => {
                     <div className='p-2'>
                         <h1 className='text-2xl mb-2'>Számlázási adatok</h1>
                         <div className='gap-2 p-2 flex flex-col'>
-                            <input type="text" onChange={()=>{SetNev(event.target.value)}} className='border-2' placeholder='Számlázási név' />
-                            <input type="text" onChange={()=>{SetIrszam(event.target.value)}} className='border-2' placeholder='Irányítószám' />
-                            <input type="text" onChange={()=>{SetVaros(event.target.value)}} className='border-2' placeholder='Város' />
-                            <input type="text" onChange={()=>{SetUtca(event.target.value)}} className='border-2' placeholder='Utca' />
-                            <input type="text" onChange={()=>{SetHazszam(event.target.value)}} className='border-2' placeholder='Házszám' />
+                            <input type="text" onChange={() => { SetNev(event.target.value) }} className='border-2' placeholder='Számlázási név' />
+                            <input type="text" onChange={() => { SetIrszam(event.target.value) }} className='border-2' placeholder='Irányítószám' />
+                            <input type="text" onChange={() => { SetVaros(event.target.value) }} className='border-2' placeholder='Város' />
+                            <input type="text" onChange={() => { SetUtca(event.target.value) }} className='border-2' placeholder='Utca' />
+                            <input type="text" onChange={() => { SetHazszam(event.target.value) }} className='border-2' placeholder='Házszám' />
                         </div>
                     </div>
                 </div>
@@ -169,7 +173,7 @@ const OrderPlace = () => {
                                 <img src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png" className='w-10 h-10' />
                                 <div>
                                     <a href={`/info/${termek.id}`} key={index}>{termek.nev}</a>
-                                    <h2 className='text-indigo-800'>{termek?.akcios ? (termek.ar-(termek.ar * (termek.akciosar / 100))) * termek.darab : (termek.ar) * termek.darab} Ft</h2>
+                                    <h2 className='text-indigo-800'>{termek?.akcios ? (termek.ar - (termek.ar * (termek.akciosar / 100))) * termek.darab : (termek.ar) * termek.darab} Ft</h2>
                                 </div>
                             </div>
                         ))

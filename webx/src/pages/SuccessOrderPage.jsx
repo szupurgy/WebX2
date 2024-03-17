@@ -5,11 +5,10 @@ import { useParams } from 'react-router-dom'
 
 const SuccessOrderPage = () => {
     const { id } = useParams()
-    console.log(id)
   return (
     <>
         <TopBar/>
-        <Szamla/>
+        <Szamla id={id}/>
     </>
   )
 }
