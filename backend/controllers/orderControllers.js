@@ -42,7 +42,7 @@ const GetOrderData= async(req, res) => {
         res.json('Nincs rendelés azonosító!');
         return;
     }
-    const getrendeles= await prisma.rendeles.findFirst({
+    const getrendeles= await prisma.rendeles.findMany({
         where: {
             rendelesazonosito: id
         },

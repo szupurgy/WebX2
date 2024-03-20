@@ -7,7 +7,6 @@ const Eladasok = () => {
             const rendelesek = await fetch("http://localhost:8000/admin/rendelesek")
             const data = await rendelesek.json()
             setRendelesek(data)
-            console.log(data)
         }
         rendelesek()
     }, [])
@@ -22,11 +21,11 @@ const Eladasok = () => {
         },
         {
             name: "Felhasználó",
-            selector: row => row.floID
+            selector: row => row.Felhasznalo.felhasznalonev
         },
         {
             name: "Termék",
-            selector: row => row.TmkID
+            selector: row => row.Termek.nev
         },
         {
             name: "Mennyiség",
@@ -46,7 +45,7 @@ const Eladasok = () => {
         },
         {
             name: "Cím",
-            selector: row => row.CimID
+            selector: row => (row.Cim.varos +" "+ row.Cim.utca +" "+ row.Cim.hazszam)
         },
     ]
     return (

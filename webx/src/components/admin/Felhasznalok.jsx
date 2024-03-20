@@ -7,6 +7,7 @@ const Felhasznalok = () => {
       const felhasznalok = await fetch("http://localhost:8000/admin/users")
       const data = await felhasznalok.json()
       setFelhasznalok(data)
+      console.log(data)
     }
     users()
   }, [])

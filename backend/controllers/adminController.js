@@ -75,7 +75,13 @@ const AddProduct = async(req, res) => {
 }
 
 const GetAdminChat= async(req,res)=>{
-    const chat=await prisma.adminchat.findMany()
+    const chat=await prisma.adminchat.findMany({
+        select:{
+            message:true,
+            datum:true,
+            userid:true
+        }
+    })
     res.json(chat);
 }
 
@@ -117,13 +123,34 @@ const RemoveTermek = async(req,res) => {
 }
 
 const Rendelesek= async(req,res)=>{
-    const rendelesek = await prisma.rendeles.findMany();
+    const rendelesek = await prisma.rendeles.findMany({
+        include:{
+            Felhasznalo: {
+                select:{
+                    felhasznalonev:true
+                }
+            },
+            Termek:{
+                select:{
+                    nev:true,
+                }
+            },
+            Cim:{
+                select:{
+                    orszag:true,
+                    varos:true,
+                    utca:true,
+                    hazszam:true
+                }
+            }
+        }
+    });
     res.json(rendelesek)
 }
 
 const Felhasznalok= async(req,res) => {
-    const fiok = await prisma.user.findMany();
-    res.json(fiok);
+    const users = await prisma.user.findMany();
+    res.json(users)
 }
 
 module.exports = {

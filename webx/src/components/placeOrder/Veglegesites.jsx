@@ -47,13 +47,31 @@ const OrderPlace = () => {
     const [sztipus, SetSztipus] = useState();
     const [ftipus, SetFtipus] = useState();
 
-    const CheckData = () => {
+    const CheckData = async() => {
         if (!sznev || !irszam || !varos || !hazszam || !utca || !sztipus || !ftipus) {
             toast.error("Minden adat kitöltése kötelező!")
             return;
         }
+        const szalCimAdd=async()=>{
+            const response = await fetch("http://localhost:8000/new/changedelivery", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    orszag: "Magyarország",
+                    varos: varos,
+                    iranyitoszam: Number(irszam),
+                    utca: utca,
+                    hazszam: Number(hazszam),
+                })
+            })
+            const data = await response.json()
+            console.log(data)
+        }
+        await szalCimAdd()
         const rendelesid = uuidv4();
-        console.log(rendelesid)
         cart && cart.map(async (termek, index) => {
             const rendelesleadas = await fetch("http://localhost:8000/order/MakeOrder", {
                 method:"POST",

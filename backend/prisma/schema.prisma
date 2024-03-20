@@ -44,7 +44,7 @@ model cim {
   hazszam      Int?
   iranyitoszam Int?
   felhasznalo  user       @relation(fields: [fid], references: [id])
-  fid          Int
+  fid          Int        @unique
   rendeles     rendeles[]
 
   @@map("SzalCimek")

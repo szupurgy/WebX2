@@ -55,10 +55,10 @@ const Uzenofal = () => {
             chat?.map((item, index) => {
               if (item?.userid == ki?.id) {
                 return (
-                  <div key={index} className='text-xl flex flex-col'>
+                  <div key={index} className='text-xl my-2 px-2 flex flex-col'>
                     <div className="flex gap-5">
-                      <label>{item?.userid}</label>
-                      <label>{item?.datum}</label>
+                      <label className='text-sm'>{ki?.nev}</label>
+                      <label className='text-sm'>{item?.datum}</label>
                     </div>
                     <label>{item?.message}</label>
                   </div>
