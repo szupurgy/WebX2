@@ -48,6 +48,7 @@ const GetOrderData= async(req, res) => {
         },
         select:{
             id:true,
+            datum:true,
             Cim:true,
             Termek:true,
             Felhasznalo:true,

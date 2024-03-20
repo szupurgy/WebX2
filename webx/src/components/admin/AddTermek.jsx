@@ -1,68 +1,63 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useDropzone} from 'react-dropzone';
 import { GiCloudUpload } from "react-icons/gi";
 import toast from "react-hot-toast"
 const AddTermek = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
-    const { getRootProps, getInputProps } = useDropzone({
-        onDrop: (acceptedFiles) => {
-            console.log(acceptedFiles)
-            setUploadedFiles(acceptedFiles);
-        },
-    })
     const [termeknev,settermeknev]= useState();
     const [termekleiras,settermekleiras]= useState();
     const [ar,setar]= useState();
     const [akcios,setakcios]= useState();
     const [akciosar,setakciosar]= useState();
-    let akc=0;
+    useEffect(()=>{
+        console.log(akcios)
+    },[akcios])
+
     const felvisz = async()=>{
-        if (uploadedFiles == [] || uploadedFiles.length==0) {
-            toast.error("A kép feltöltése kötelező!")
-            return;
-        }
-        if (termeknev == null || termeknev.length == 0 || termekleiras == null || termekleiras.length == 0 || ar == null || ar.length == 0) {
-            toast.error("Minden mező kitöltése kötelező")
-        }
-        if (akcios == null) {
-            toast.error("Adja meg, hogy akciós-e ")
-            return
-        }
-        if (akciosar == null) {
-            toast.error("Adja meg az akció értékét!")
-        }
-        if (akcios==true) {
-            akc=1
-        }
-        const termekfel= await fetch("http://localhost:8000/admin/addproduct",{
-            method:"POST",
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify({
-                nev: termeknev,
-                leiras: termekleiras,
-                ar: Number(ar),
-                akcios: Boolean(akc),
-                akciosar: akciosar
-            })
-        })
-        const data= await termekfel.json();
-        console.log(data)
-        const termekid= data.id;
-        const formdata = new FormData()
-        Array.from(uploadedFiles).map((file) => {
-          formdata.append('file',file)
-        })
+        // let akc=0;
+        // if (termeknev == null || termeknev.length == 0 || termekleiras == null || termekleiras.length == 0 || ar == null || ar.length == 0) {
+        //     toast.error("Minden mező kitöltése kötelező")
+        // }
+        // if (akcios == null) {
+        //     toast.error("Adja meg, hogy akciós-e ")
+        //     return
+        // }
+        // if (akciosar == null) {
+        //     toast.error("Adja meg az akció értékét!")
+        // }
+        // if (akcios=="true") {
+        //     akc=1
+        // }
+        // const termekfel= await fetch("http://localhost:8000/admin/addproduct",{
+        //     method:"POST",
+        //     headers:{
+        //         'Content-Type':'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         nev: termeknev,
+        //         leiras: termekleiras,
+        //         ar: Number(ar),
+        //         akcios: Boolean(akc),
+        //         akciosar: akciosar
+        //     })
+        // })
+        // const data= await termekfel.json();
+        // const termekid= data.id;
+        // console.log(termekid)
         
+        kepfel()
+    }
+    const kepfel=async()=>{
+        console.log("zsa")
+        console.log(uploadedFiles)
         const keptotermek= await fetch("http://localhost:8000/upload",{
             method:"POST",
             headers:{
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                TmkID: termekid,
-                image: uploadedFiles
+                TmkID: 1,
+                image: uploadedFiles[0]
             })
         })
         console.log("halo")
@@ -70,7 +65,7 @@ const AddTermek = () => {
         console.log(res);
     }
     return (
-        <div className='w-full flex flex-col p-2 m-5 h-full'>
+        <div className='w-full flex overflow-scroll flex-col p-2 m-5 h-full'>
             <div className='flex justify-center items-center'>
                 <h1 className='text-4xl'>Termék hozzáadása</h1>
             </div>
@@ -110,15 +105,9 @@ const AddTermek = () => {
                         </td>
                     </tr>
                 </table>
-                <div {...getRootProps()} className='text-black mt-2 cursor-pointer flex flex-col justify-center items-center bg-white text-center z-0 rounded-lg p-5 w-92 h-96'>
-                    <input {...getInputProps()} />
-                    <GiCloudUpload className='w-36 h-36' />
-                    <p>Drag and drop files here or click to browse.</p>
-                    <ul>
-                        {uploadedFiles.map((file) => (
-                            <li key={file.name}>{file.name}</li>
-                        ))}
-                    </ul>
+                <div  className='text-black mt-2 flex flex-col justify-center items-center bg-white text-center z-0 rounded-lg p-5 w-92 h-96'>
+                    <input type='file' onChange={()=>{setUploadedFiles(event.target.files)}} id='fileupload' className='hidden'/>
+                    <label htmlFor="fileupload" className='w-full cursor-pointer h-full'><GiCloudUpload className='w-full h-full' /></label>
                 </div>
                 <div className='flex mt-5 justify-center items-center'>
                     <button onClick={felvisz} className='bg-gray-500 rounded p-3 text-3xl'>

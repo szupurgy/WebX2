@@ -12,6 +12,8 @@
   "dependencies": {
     "@prisma/client": "^5.8.1",
     "axios": "^1.6.7",
+    "jspdf-invoice-template": "^1.4.3",
+    "jspdf-invoice-template-nodejs": "^1.4.30",
     "react": "^18.2.0",
     "react-data-table-component": "^7.6.2",
     "react-dom": "^18.2.0",

@@ -53,21 +53,27 @@ app.use('/new', require('./routes/changeDataRoutes'))
 app.use('/order', require('./routes/orderRouters'))
 
 app.post("/upload", uploads.single('image'), async (req, res) => {
-    if (req.file && req.body) {
-        const data = {
-            filename: req.file.filename,
-            bodyform: req.body
-        }
-        const { TmkID } = data.bodyform;
-        const filename  = data.filename;
-        console.log(filename)
-        const kepfeltoltes = await prisma.termekkepek.create({
-            data: {
-                TmkID: Number(TmkID),
-                kep: filename
+    try {
+        if (req.file && req.body) {
+            const data = {
+                filename: req.file.name,
+                bodyform: req.body
             }
-        })
-        res.json(kepfeltoltes);
+            const { TmkID } = data.bodyform;
+            const filename  = data.filename;
+            console.log(filename)
+            const kepfeltoltes = await prisma.termekkepek.create({
+                data: {
+                    TmkID: Number(TmkID),
+                    kep: filename
+                }
+            })
+            res.json(kepfeltoltes);
+        } else{
+            res.json("halo")
+        }
+    } catch (err) {
+        res.json(err.message)
     }
 })
 
