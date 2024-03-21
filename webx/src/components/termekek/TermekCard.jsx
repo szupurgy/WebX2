@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import {AiOutlinePercentage} from "react-icons/ai"
 
 const TermekCard = ({termek}) => {
-    console.log(termek.termekkepek[0].kep)
     return (
         <>
             <div className='main hover:scale-95 transition flex flex-col p-5 gap-5 rounded-2xl md:ml-8 md:pb-10 drop sm:w-1/2 md:size-80 md:gap-1 size-11/12 shadow-2xl justify-center items-center bg-gradient-to-t from-stone-500'>

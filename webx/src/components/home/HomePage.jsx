@@ -29,7 +29,7 @@ const Home = () => {
                                             <AiOutlinePercentage title='Akciós' className='absolute size-10 hover:animate-pulse flex justify-end items-end' />
                                         </div>
                                         <div>
-                                            <img src='https://media-play.pl/ecommerce/medias/productimages/48733/TE-AP-12PM1-PL1-BU/square.png' className='size-60 md:size-40 hover:scale-110 transition drop-shadow-2xl' />
+                                            <img src={`http://localhost:8000/uploads/${termek.termekkepek[0].kep}`} className='size-60 md:size-40 hover:scale-110 transition drop-shadow-2xl' />
                                         </div>
                                         <div className='flex flex-col gap-2 w-full'>
                                             <span className='font-bold flex w-full items-center justify-center text-center text-2xl'>{termek.nev}</span>
@@ -55,7 +55,7 @@ const Home = () => {
                                             <AiOutlinePercentage title='Akciós' className='absolute size-10 hover:animate-pulse flex justify-end items-end' />
                                         </div>
                                         <div>
-                                            <img src='https://media-play.pl/ecommerce/medias/productimages/48733/TE-AP-12PM1-PL1-BU/square.png' className='size-60 md:size-40 hover:scale-110 transition drop-shadow-2xl' />
+                                            <img src={`http://localhost:8000/uploads/${termek.termekkepek[0].kep}`} className='size-60 md:size-40 hover:scale-110 transition drop-shadow-2xl' />
                                         </div>
                                         <div className='flex flex-col gap-2 w-full'>
                                             <span className='font-bold flex w-full items-center justify-center text-center text-2xl'>{termek.nev}</span>

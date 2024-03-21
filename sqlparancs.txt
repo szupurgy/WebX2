@@ -1,0 +1,4 @@
+admin-
+
+INSERT INTO admin(nev, jelszo) VALUES ('admin','$argon2id$v=19$m=65536,t=3,p=4$ypCgpMyNBQZYOUTWJi/FWg$MHjZD4X9XWKDcWmMF5HDAB9K3X2j9jvLjEQesanfzD4')
+

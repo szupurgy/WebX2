@@ -10,7 +10,7 @@ const TInfo = ({ data }) => {
       cart.map((cartItem)=>
         cartItem.id === data.id
         
-       ? {...cartItem, darab: cartItem.darab>=10? 10 : cartItem.darab + 1 }
+       ? {...cartItem, darab: cartItem.darab>=10? 10 : cartItem.darab + 1, kep:data?.termekkepek.kep }
        : cartItem
        )
       )

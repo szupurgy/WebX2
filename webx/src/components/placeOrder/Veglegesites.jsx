@@ -188,7 +188,7 @@ const OrderPlace = () => {
                     {
                         cart && cart.map((termek, index) => (
                             <div key={index} className='flex'>
-                                <img src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png" className='w-10 h-10' />
+                                <img src={`http://localhost:8000/uploads/${termek.termekkepek[0].kep}`} className='w-10 h-10' />
                                 <div>
                                     <a href={`/info/${termek.id}`} key={index}>{termek.nev}</a>
                                     <h2 className='text-indigo-800'>{termek?.akcios ? (termek.ar - (termek.ar * (termek.akciosar / 100))) * termek.darab : (termek.ar) * termek.darab} Ft</h2>
