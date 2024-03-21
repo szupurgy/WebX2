@@ -52,46 +52,40 @@ app.use('/product', require('./routes/productRoutes'))
 app.use('/new', require('./routes/changeDataRoutes'))
 app.use('/order', require('./routes/orderRouters'))
 
+app.post("/tesztgeci", uploads.single('image'), async (req, res) => {
+    const { TmkID } = req.body
+    
+    console.log(TmkID)
+    res.send("fasz")
+})
+
 app.post("/upload", uploads.single('image'), async (req, res) => {
     try {
         if (req.file && req.body) {
             const data = {
-                filename: req.file.name,
+                filename: req.file.filename,
                 bodyform: req.body
             }
             const { TmkID } = data.bodyform;
             const filename  = data.filename;
-            console.log(filename)
+            
             const kepfeltoltes = await prisma.termekkepek.create({
                 data: {
                     TmkID: Number(TmkID),
                     kep: filename
                 }
             })
-            res.json(kepfeltoltes);
+            res.send("Sikeres feltöltés");
         } else{
-            res.json("halo")
+            console.log(req.body)
+            console.log(req.file)
+            res.json(req.body.image)
+
         }
     } catch (err) {
         res.json(err.message)
     }
 })
 
-app.get("/getkep/:name", async(req, res) => {
-    const imgname= req.params.name;
-    if (!imgname || imgname === '') {
-        res.status(404).send('Bad request')
-        return;
-    }
-
-    const filepath = path.join(__dirname,'uploads',imgname);
-    const fileexists = fs.existsSync(filepath);
-    if (!fileexists) {
-        res.status(404).send('File does not exist')
-        return;
-    }
-    const imgdata= await fs.promises.readFile(filepath);
-    res.contentType('image/jpeg');
-    res.send(imgdata);
-})
+app.use("/uploads", express.static('uploads'))
 

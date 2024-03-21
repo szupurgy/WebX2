@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {useDropzone} from 'react-dropzone';
 import { GiCloudUpload } from "react-icons/gi";
 import toast from "react-hot-toast"
+import axios from "axios"
+
 const AddTermek = () => {
-    const [uploadedFiles, setUploadedFiles] = useState([]);
+    const [uploadedFiles, setUploadedFiles] = useState();
     const [termeknev,settermeknev]= useState();
     const [termekleiras,settermekleiras]= useState();
     const [ar,setar]= useState();
@@ -14,55 +16,49 @@ const AddTermek = () => {
     },[akcios])
 
     const felvisz = async()=>{
-        // let akc=0;
-        // if (termeknev == null || termeknev.length == 0 || termekleiras == null || termekleiras.length == 0 || ar == null || ar.length == 0) {
-        //     toast.error("Minden mező kitöltése kötelező")
-        // }
-        // if (akcios == null) {
-        //     toast.error("Adja meg, hogy akciós-e ")
-        //     return
-        // }
-        // if (akciosar == null) {
-        //     toast.error("Adja meg az akció értékét!")
-        // }
-        // if (akcios=="true") {
-        //     akc=1
-        // }
-        // const termekfel= await fetch("http://localhost:8000/admin/addproduct",{
-        //     method:"POST",
-        //     headers:{
-        //         'Content-Type':'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         nev: termeknev,
-        //         leiras: termekleiras,
-        //         ar: Number(ar),
-        //         akcios: Boolean(akc),
-        //         akciosar: akciosar
-        //     })
-        // })
-        // const data= await termekfel.json();
-        // const termekid= data.id;
-        // console.log(termekid)
-        
-        kepfel()
-    }
-    const kepfel=async()=>{
-        console.log("zsa")
-        console.log(uploadedFiles)
-        const keptotermek= await fetch("http://localhost:8000/upload",{
+        let akc=0;
+        if (termeknev == null || termeknev.length == 0 || termekleiras == null || termekleiras.length == 0 || ar == null || ar.length == 0) {
+            toast.error("Minden mező kitöltése kötelező")
+        }
+        if (akcios == null) {
+            toast.error("Adja meg, hogy akciós-e ")
+            return
+        }
+        if (akciosar == null) {
+            toast.error("Adja meg az akció értékét!")
+        }
+        if (akcios=="true") {
+            akc=1
+        }
+        const termekfel= await fetch("http://localhost:8000/admin/addproduct",{
             method:"POST",
             headers:{
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify({
-                TmkID: 1,
-                image: uploadedFiles[0]
+            body: JSON.stringify({
+                nev: termeknev,
+                leiras: termekleiras,
+                ar: Number(ar),
+                akcios: Boolean(akc),
+                akciosar: akciosar
             })
         })
-        console.log("halo")
-        const res= await keptotermek.json();
-        console.log(res);
+        const data= await termekfel.json();
+        termekid= data.id;
+        
+        kepfel()
+    }
+    let termekid=0;
+    const kepfel = async () => {
+        const formdata = new FormData()
+        formdata.append("TmkID", termekid);
+        formdata.append("image", uploadedFiles);
+
+        console.log(Object.fromEntries(formdata))
+        axios.post("http://localhost:8000/upload", formdata)
+        .then(res => {
+            toast.success(res.data)
+        })
     }
     return (
         <div className='w-full flex overflow-scroll flex-col p-2 m-5 h-full'>
@@ -106,7 +102,7 @@ const AddTermek = () => {
                     </tr>
                 </table>
                 <div  className='text-black mt-2 flex flex-col justify-center items-center bg-white text-center z-0 rounded-lg p-5 w-92 h-96'>
-                    <input type='file' onChange={()=>{setUploadedFiles(event.target.files)}} id='fileupload' className='hidden'/>
+                    <input type='file' onChange={(e)=>setUploadedFiles(e.target.files[0])} id='fileupload' className='hidden'/>
                     <label htmlFor="fileupload" className='w-full cursor-pointer h-full'><GiCloudUpload className='w-full h-full' /></label>
                 </div>
                 <div className='flex mt-5 justify-center items-center'>

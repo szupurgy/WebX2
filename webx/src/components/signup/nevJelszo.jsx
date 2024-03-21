@@ -1,5 +1,7 @@
 import React from 'react'
 import toast from 'react-hot-toast';
+import {FaExclamationTriangle} from "react-icons/fa"
+
 const NevJelszoIn = ({prevStep,nextStep,handleChange,values}) => {
     const Previous = e => {
         e.preventDefault();
@@ -14,8 +16,16 @@ const NevJelszoIn = ({prevStep,nextStep,handleChange,values}) => {
         const nev=values.username;
         const jelszo=values.password;
         const jelszo2=values.password2;
-        if (jelszo!=jelszo2 || nev=="" || nev==null || jelszo=="" || jelszo==null || jelszo.length<8) {
-            toast.error("Nem valós adatok!");
+        if (nev=="" || nev==null) {
+            toast.error("Név megadása kötelező!");
+            return;
+        }
+        if ( jelszo=="" || jelszo==null || jelszo.length<8) {
+            toast.error("Hibás jelszó")
+            return;
+        }
+        if (jelszo!=jelszo2 ) {
+            toast.error("Nem eggyeznek a jelszavak!")
             return;
         }
         Continue();
@@ -35,7 +45,8 @@ const NevJelszoIn = ({prevStep,nextStep,handleChange,values}) => {
                             value={values.username} 
                             onChange={handleChange('username')}
                         />
-                    <label className='p-2 text-4xl mb-4'>Jelszó:</label>
+                    <label className='px-2 flex gap-4  items-center text-4xl '>Jelszó:</label>
+                    <span className='text-sm mb-4 px-2'>A jelszó egy minimum 8 karakter hosszú karakterlánc</span>
                         <input 
                             className='border text-lg w-full rounded-md p-2.5 shadow-md'
                             type="password" 

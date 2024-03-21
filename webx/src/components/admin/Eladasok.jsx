@@ -49,9 +49,9 @@ const Eladasok = () => {
         },
     ]
     return (
-        <div className='w-full p-2 h-full'>
-            <h1 className='flex text-white justify-center items-center'>Eladások</h1>
-            <div className='bg-gray-800 overflow-y-scroll p-5 mb-60 w-11/12 mx-auto h-5/6'>
+        <div className='w-full h-full'>
+            <h1 className='flex text-white justify-center items-center text-4xl'>Eladások</h1>
+            <div className='bg-gray-800 overflow-y-scroll w-10/12 ml-10 p-2 h-5/6'>
                 <DataTable
                     columns={columns}
                     data={rendelesek}

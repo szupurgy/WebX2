@@ -51,7 +51,11 @@ const AdminLogin = async (req, res) => {
 }
 
 const alltermek= async(req,res) => {
-    const termek = await prisma.termek.findMany();
+    const termek = await prisma.termek.findMany({
+        include:{
+            termekkepek:true
+        }
+    });
     res.json(termek);
 }
 

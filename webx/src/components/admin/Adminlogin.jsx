@@ -40,7 +40,7 @@ const AdminLogin = () => {
                     <input onChange={()=>{setJelszo(event.target.value)}} type="password" className="bg-gray-500 rounded p-3 my-3 w-full border-spacing-2 " placeholder="Password" />
                 </div> 
                 <div className="d-flex align-items-center justify-content-between mb-4">
-                    <span className='px-2 flex text-sm '>Minden illetéktelen bejelentkezés jogi következményeket von maga után. Amennyiben nem rendelkezik admin jogosultsággak hagyja el ezt az oldalt.</span>
+                    <span className='px-2 flex text-sm '>Minden illetéktelen bejelentkezés jogi következményeket von maga után. Amennyiben nem rendelkezik admin jogosultsággal hagyja el ezt az oldalt.</span>
                 </div>
                 <button onClick={login} className="bg-red-600 w-full py-3 mb-4 text-xl">Belépés</button>
             </div>

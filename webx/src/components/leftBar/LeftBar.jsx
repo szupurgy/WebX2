@@ -30,6 +30,13 @@ const LeftBar = (szuro) => {
               <label htmlFor="maxar">Ft</label>
               </div>
             </div>
+            <div className='w-full flex-col'>
+              <h1 className='text-2xl  ml-2'>Listázás</h1>
+              <select name="lista" className="bg-gray-50 border flex mx-auto text-xl border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" id="lista">
+                <option className='rounded-lg' value="all">Összes termék</option>
+                <option className='rounded-lg ring-2' value="dis">Akciós termékek</option>
+              </select>
+            </div>
             <hr className=' w-11/12 flex ml-5 mx-5 mt-5 ' />
             <div>
               <button onClick={kereso} className='text-2xl m-6 p-3 rounded-md bg-stone-300 shadow-sm'>Keresés!</button>

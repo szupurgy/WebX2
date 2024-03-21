@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import {AiOutlinePercentage} from "react-icons/ai"
 
 const TermekCard = ({termek}) => {
+    console.log(termek.termekkepek[0].kep)
     return (
         <>
             <div className='main hover:scale-95 transition flex flex-col p-5 gap-5 rounded-2xl md:ml-8 md:pb-10 drop sm:w-1/2 md:size-80 md:gap-1 size-11/12 shadow-2xl justify-center items-center bg-gradient-to-t from-stone-500'>
@@ -10,7 +11,7 @@ const TermekCard = ({termek}) => {
                     <AiOutlinePercentage title='Akciós' className='absolute size-10 hover:animate-pulse flex justify-end items-end' />
                 </div>
                 <div className='kep'>
-                    <img src='https://media-play.pl/ecommerce/medias/productimages/48733/TE-AP-12PM1-PL1-BU/square.png' className='size-60 md:size-40 hover:scale-110 transition drop-shadow-2xl' />
+                    <img src={`http://localhost:8000/uploads/${termek.termekkepek[0].kep}`} className='size-60 md:size-40 rounded-xl hover:scale-110 transition drop-shadow-2xl' />
                 </div>
                 <div className='szoveg flex flex-col gap-2 w-full'>
                     <span className='font-bold flex w-full items-center justify-center text-center text-2xl'>{termek.nev}</span>

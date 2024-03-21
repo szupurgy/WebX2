@@ -24,7 +24,7 @@ const TInfo = ({ data }) => {
       <div className='h-24'></div>
       <div className='block md:flex md:border'>
         <div className='md:w-1/2 md:border-r'>
-          <img src="https://images.macrumors.com/t/OGS-wMpuHXbX6VkpJd6urJH1rEg=/1600x0/article-new/2023/09/iphone-15-pro-gray.jpg" />
+          <img src={`http://localhost:8000/uploads/${data?.termekkepek[0].kep}`} className='m-auto size-60' />
         </div>
         <div className='md:w-1/2 md:mt-2'>
           <h1 className='text-center text-2xl'>{data?.nev}</h1>

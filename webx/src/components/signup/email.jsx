@@ -36,8 +36,8 @@ const EmailIn = ({nextStep,handleChange,values}) => {
                     <label className='p-2 text-4xl mb-4'>E-mail cím:</label>
                     <input 
                     className='border text-lg w-full rounded-md p-2.5 shadow-md'
-                    type="text" 
-                    placeholder="email cím" 
+                    type="email" 
+                    placeholder="E-mail cím" 
                     value={values.email} 
                     onChange={handleChange('email')}
                     />

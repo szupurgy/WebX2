@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import toast from "react-hot-toast"
 import { useNavigate } from 'react-router-dom'
 import jsPDFInvoiceTemplate, { OutputType, jsPDF } from "jspdf-invoice-template";
+import arContext from '../../context/ArContext';
 const Szamla = (termekid) => {
   const navigate = useNavigate()
   const [szamla, setSzamla] = useState()
@@ -17,14 +18,19 @@ const Szamla = (termekid) => {
       }
     })
     const data = await rendelesek.json()
-    setSzamla(data)
-    setRendelesAzon(data[0].rendelesazonosito)
     console.log(data)
-    console.log(rendelesazon)
-    if (data === null) {
+    if (data == null || data.length==0) {
       toast.error("Nem található ilyen rendelés")
       navigate('/home')
     }
+    setSzamla(data)
+    setRendelesAzon(data[0].rendelesazonosito)
+    const {cart, ar, setAr, setCart } = useContext(arContext);
+    setCart(prev => {
+      return prev.filter((item, i) => i !== index)
+  })
+  
+
   }
 
   const letoltes = () => {
