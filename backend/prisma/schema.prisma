@@ -32,6 +32,7 @@ model termek {
   akciosar    Int?
   rendeles    rendeles[]
   termekkepek termekkepek[]
+  termekparams termekparams[]
 
   @@map("Termekek")
 }
@@ -43,7 +44,7 @@ model cim {
   utca         String?
   hazszam      Int?
   iranyitoszam Int?
-  felhasznalo  user       @relation(fields: [fid], references: [id])
+  felhasznalo  user       @relation(fields: [fid], references: [id], onDelete: Cascade)
   fid          Int        @unique
   rendeles     rendeles[]
 
@@ -53,11 +54,11 @@ model cim {
 model rendeles {
   id                Int      @id @default(autoincrement())
   datum             DateTime @default(now())
-  Felhasznalo       user     @relation(fields: [floID], references: [id])
+  Felhasznalo       user     @relation(fields: [floID], references: [id], onDelete: Cascade)
   floID             Int
-  Termek            termek   @relation(fields: [TmkID], references: [id])
+  Termek            termek   @relation(fields: [TmkID], references: [id], onDelete: Cascade)
   TmkID             Int
-  Cim               cim      @relation(fields: [CimID], references: [id])
+  Cim               cim      @relation(fields: [CimID], references: [id], onDelete: Cascade)
   CimID             Int
   fizMod            String
   SzalMod           String
@@ -84,6 +85,24 @@ model termekkepek {
   kep    String
 
   @@map("eleresek")
+}
+
+model termekparams {
+  id Int @id @default(autoincrement())
+  Termek termek @relation(fields: [TmkID], references: [id], onDelete: Cascade)
+  TmkID  Int @unique
+  kijelzo Int?
+  magassag Int?
+  szelesseg Int?
+  vastagsag Int?
+  tomeg Int?
+  szin String?
+  usb String?
+  vizallo String?
+  wifi String?
+  kamera String?
+  gpu String?
+  CPU String?
 }
 
 model admin {

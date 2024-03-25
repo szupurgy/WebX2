@@ -58,7 +58,7 @@ const Uzenofal = () => {
                   <div key={index} className='text-xl my-2 px-2 flex flex-col'>
                     <div className="flex gap-5">
                       <label className='text-sm'>{ki?.nev}</label>
-                      <label className='text-sm'>{item?.datum}</label>
+                      <label className='text-sm'>{item?.datum.split("T")[0]}</label>
                     </div>
                     <label>{item?.message}</label>
                   </div>

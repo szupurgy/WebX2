@@ -7,12 +7,10 @@ const RemoveTermek = () => {
             const termek= await fetch("http://localhost:8000/admin/alltermek")
             const data = await termek.json()
             settermekek(data)
-            console.log(data)
         }
         termekek()
     },[])
     const torol= async(id)=>{
-        console.log(id);
         const deltermek= await fetch("http://localhost:8000/admin/delete",{
             method:"POST",
             headers:{
@@ -20,12 +18,13 @@ const RemoveTermek = () => {
             },
             body:JSON.stringify({id})
         })
+        const data=await deltermek.json();
+        console.log(data)
     }
     return ( 
         <div className='w-full p-2 m-5 h-full overflow-y-scroll grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
             {
                 termekek && termekek.map((termek,index)=>{
-                    console.log(termek.termekkepek[0].kep)
                     return(
                         <div className='w-44 h-44 rounded ring-2 bg-gray-600' key={index}>
                             <div className='flex'>

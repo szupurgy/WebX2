@@ -82,16 +82,7 @@ const Panel = () => {
             </div>
             <div className='ring-2 ring-gray-600 bg-gray-800 flex flex-col justify-center items-center rounded w-40 h-40'>
                 <div className=''>
-                    <h1 className='text-stone-400'>Eladások száma</h1>
-                    <h2 className='text-stone-500 flex items-center justify-center'>Elmúlt 1 év</h2>
-                </div>
-                <div>
-                    <h1 className='text-white'>500</h1>
-                </div>
-            </div>
-            <div className='ring-2 ring-gray-600 bg-gray-800 flex flex-col justify-center items-center rounded w-40 h-40'>
-                <div className=''>
-                    <h1 className='text-stone-400'>Új felhasználók száma</h1>
+                    <h1 className='text-stone-400'>Felhasználók száma</h1>
                 </div>
                 <div>
                     <h1 className='text-white'>{felhasznalok?.length}</h1>

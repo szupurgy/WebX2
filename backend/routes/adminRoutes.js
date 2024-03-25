@@ -5,7 +5,7 @@ const { protect }=require("../middlewear/adminMiddlewear");
 
 const {CreateAdmin, AdminLogin, AddProduct, alltermek, RemoveTermek,
     Rendelesek, Felhasznalok, AdminChatSendMessage,
-    GetAdminChat,GetAdmin}= require("../controllers/adminController")
+    GetAdminChat,GetAdmin, AddParams}= require("../controllers/adminController")
 
 router.post("/addadmin" , CreateAdmin);
 router.post("/login", AdminLogin);
@@ -17,5 +17,6 @@ router.get('/users',Felhasznalok)
 router.post('/sendmsg',protect,AdminChatSendMessage)
 router.get('/chat',GetAdminChat)
 router.post('/who',protect,GetAdmin)
+router.post('/addparams',AddParams)
 
 module.exports= router;

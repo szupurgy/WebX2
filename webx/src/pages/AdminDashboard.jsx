@@ -6,12 +6,15 @@ import { BsShop } from "react-icons/bs";
 import { FaUsersCog } from "react-icons/fa";
 import { BsCartPlus } from "react-icons/bs";
 import { TbShoppingCartX } from "react-icons/tb";
+import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import Uzenofal from '../components/admin/Uzenofal';
 import Felhasznalok from '../components/admin/Felhasznalok';
 import Eladasok from '../components/admin/Eladasok';
 import Panel from '../components/admin/Panel';
 import AddTermek from '../components/admin/AddTermek';
 import RemoveTermek from '../components/admin/RemoveTermek';
+import AddParameter from '../components/admin/AddParameter';
+
 
 const AdminDashBoard = () => {
   const admintoken = localStorage.getItem('adminToken');
@@ -23,7 +26,7 @@ const AdminDashBoard = () => {
   }, [])
 
   const [page, setPage] = useState(0);
-  const pages = [<Panel/>, <Uzenofal/>, <Eladasok/>, <Felhasznalok/>, <AddTermek/>, <RemoveTermek/>,]
+  const pages = [<Panel/>, <Uzenofal/>, <Eladasok/>, <Felhasznalok/>, <AddTermek/>, <RemoveTermek/>,<AddParameter/>]
   return (
     <div className='h-screen overflow-hidden w-screen bg-black'>
       <nav className='w-full flex h-24 bg-slate-800 drop-shadow-2xl decoration-purple-700 rounded-b '>
@@ -65,6 +68,10 @@ const AdminDashBoard = () => {
             <div onClick={()=>{setPage(5)}} className='flex hover:text-gray-400 text-white sm:text-2xl gap-2 cursor-pointer items-center px-2 sm:px-4'>
               <TbShoppingCartX className='size-6' />
               <h1>Termék eltávolítása</h1>
+            </div>
+            <div onClick={()=>{setPage(6)}} className='flex hover:text-gray-400 text-white sm:text-2xl gap-2 cursor-pointer items-center px-2 sm:px-4'>
+              <MdOutlineProductionQuantityLimits className='size-6'/>
+              <h1>Paraméterek szerkesztése</h1>
             </div>
           </div>
         </nav>

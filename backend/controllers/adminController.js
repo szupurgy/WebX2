@@ -75,6 +75,12 @@ const AddProduct = async(req, res) => {
             akciosar:Number(akciosar)
         }
     })
+    const id=termek.id;
+    const termekparams= await prisma.termekparams.create({
+        data:{
+            TmkID:id
+        }
+    })
     res.json(termek);
 }
 
@@ -87,6 +93,38 @@ const GetAdminChat= async(req,res)=>{
         }
     })
     res.json(chat);
+}
+
+const AddParams= async (req, res) =>{
+    const {selected,kijelzo,magassag,szelesseg,vastagsag,tomeg,szin,usb,vizallo,wifi,kamera,gpu,CPU} = req.body;
+    if (!selected ||!kijelzo ||!magassag ||!szelesseg ||!vastagsag ||!tomeg ||!szin ||!usb ||!vizallo ||!wifi ||!kamera ||!gpu ||!CPU) {
+        res.json("Hiányzó adatok!");
+        return;
+    }
+    try {
+        const addparam= await prisma.termekparams.update({
+            where:{
+                TmkID:selected
+            },
+            data:{
+                kijelzo:kijelzo,
+                magassag:magassag,
+                szelesseg:szelesseg,
+                vastagsag:vastagsag,
+                tomeg:tomeg,
+                szin:szin,
+                usb:usb,
+                vizallo:vizallo,
+                wifi:wifi,
+                kamera:kamera,
+                gpu:gpu,
+                CPU:CPU
+            }
+        })
+        res.json({message:"Paraméter sikeresen hozzáadva!"});
+    } catch (err) {
+        res.json(err.message);
+    }
 }
 
 const GetAdmin= async(req,res)=>{
@@ -167,5 +205,6 @@ module.exports = {
     Felhasznalok,
     AdminChatSendMessage,
     GetAdminChat,
-    GetAdmin
+    GetAdmin,
+    AddParams
 }
