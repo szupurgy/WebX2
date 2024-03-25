@@ -80,7 +80,7 @@ model adminchat {
 
 model termekkepek {
   id     Int    @id @default(autoincrement())
-  Termek termek @relation(fields: [TmkID], references: [id])
+  Termek termek @relation(fields: [TmkID], references: [id], onDelete: Cascade)
   TmkID  Int
   kep    String
 

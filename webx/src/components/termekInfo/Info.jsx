@@ -46,20 +46,20 @@ const TInfo = ({ data }) => {
         <h1 className='text-xl font-bold text-slate-500'>Termék adatai</h1>
         <div className='flex'>
           <div className='w-1/2 flex flex-col'>
-            <h1><span className='font-bold'>Kijelző mérete:</span> 6,1"</h1>
-            <h1><span className='font-bold'>Magasság:</span> 146.6 mm</h1>
-            <h1><span className='font-bold'>Szélesség:</span>70.6 mm</h1>
-            <h1><span className='font-bold'>Vastagság:</span>8.3 mm</h1>
-            <h1><span className='font-bold'>Tömeg:</span>187 g</h1>
-            <h1><span className='font-bold'>Szín:</span>Kék</h1>
+            <h1><span className='font-bold'>Kijelző mérete:</span> {data?.termekparams[0]?.kijelzo}"</h1>
+            <h1><span className='font-bold'>Magasság:</span> {data?.termekparams[0]?.magassag} mm</h1>
+            <h1><span className='font-bold'>Szélesség:</span>{data?.termekparams[0]?.szelesseg} mm</h1>
+            <h1><span className='font-bold'>Vastagság:</span>{data?.termekparams[0]?.vastagsag} mm</h1>
+            <h1><span className='font-bold'>Tömeg:</span>{data?.termekparams[0]?.tomeg} g</h1>
+            <h1><span className='font-bold'>Szín:</span>{data?.termekparams[0]?.szin}</h1>
           </div>
           <div className='w-1/2'>
-            <h1><span className='font-bold'>USB:</span> type-c</h1>
-            <h1><span className='font-bold'>Vízálló:</span> igen</h1>
-            <h1><span className='font-bold'>Wifi:</span> igen</h1>
-            <h1><span className='font-bold'>Fő kamera:</span> 12 MP</h1>
-            <h1><span className='font-bold'>GPU:</span>Apple GPU (6-core graphics)</h1>
-            <h1><span className='font-bold'>CPU:</span>Hexa-core (2x3.78 GHz + 4x2.11 GHz)</h1>
+            <h1><span className='font-bold'>USB:</span> {data?.termekparams[0]?.usb}</h1>
+            <h1><span className='font-bold'>Vízálló:</span> {data?.termekparams[0]?.vizallo}</h1>
+            <h1><span className='font-bold'>Wifi:</span> {data?.termekparams[0]?.wifi}</h1>
+            <h1><span className='font-bold'>Fő kamera:</span> {data?.termekparams[0]?.kamera}</h1>
+            <h1><span className='font-bold'>GPU:</span>{data?.termekparams[0]?.gpu}</h1>
+            <h1><span className='font-bold'>CPU:</span>{data?.termekparams[0]?.CPU}</h1>
           </div>
         </div>
       </div>

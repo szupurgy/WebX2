@@ -7,7 +7,8 @@ const prisma= new PrismaClient();
 const getAllProduct= async (req,res)=>{
     const response= await prisma.termek.findMany({
         include:{
-            termekkepek:true
+            termekkepek:true,
+            termekparams:true
         }
     });
     res.json(response);
@@ -20,7 +21,8 @@ const getProductById = async (req, res) => {
             id: Number(id)
         },
         include:{
-            termekkepek:true
+            termekkepek:true,
+            termekparams:true
         }
     })
     res.json(product)
