@@ -191,14 +191,14 @@ const OrderPlace = () => {
                                 <img src={`http://localhost:8000/uploads/${termek.termekkepek[0].kep}`} className='w-10 h-10' />
                                 <div>
                                     <a href={`/info/${termek.id}`} key={index}>{termek.nev}</a>
-                                    <h2 className='text-indigo-800'>{termek?.akcios ? (termek.ar - (termek.ar * (termek.akciosar / 100))) * termek.darab : (termek.ar) * termek.darab} Ft</h2>
+                                    <h2 className='text-indigo-800'>{Math.round(termek?.akcios ? (termek.ar - (termek.ar * (termek.akciosar / 100))) * termek.darab : (termek.ar) * termek.darab)} Ft</h2>
                                 </div>
                             </div>
                         ))
                     }
                     <hr />
                     <dir className="-mt-0">
-                        <h1 className='text-indigo-800 text-xl'>{vegar}ft</h1>
+                        <h1 className='text-indigo-800 text-xl'>{Math.round(vegar)}ft</h1>
                     </dir>
                 </div>
             </div>

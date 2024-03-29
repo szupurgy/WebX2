@@ -44,7 +44,7 @@ INSERT INTO `eleresek` (`id`, `TmkID`, `kep`) VALUES
 (2, 2, '9d3dc8fa-09bd-4b91-a47f-646df37b17a4.jpeg'),
 (3, 3, 'c24318a9-e365-4494-a756-b3396b517405.jpeg'),
 (4, 4, '6cfdd66e-34ca-44cf-a7b6-da3cd21f7949.jpeg'),
-(5, 5, '25b621bf-ce23-499e-9ba7-717754c447a6.jpeg');
+(5, 5, '25b621bf-ce23-499e-9ba7-717754c447a6.jpeg'),
 (6, 7, 'f23dcd55-c24d-4732-b12e-d441beba8e82.png'),
 (7, 8, '00821486-2c49-4829-bade-ce5e01728875.png'),
 (8, 9, '53cb3f06-d9d1-4871-80a7-5d9c577ee788.png'),

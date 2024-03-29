@@ -14,7 +14,7 @@ const TermekCard = ({termek}) => {
                 </div>
                 <div className='szoveg flex flex-col gap-2 w-full'>
                     <span className='font-bold flex w-full items-center justify-center text-center text-2xl'>{termek.nev}</span>
-                    <span className='flex w-full text-center items-center justify-center'>{ termek.akcios ? termek.ar-(termek.ar*(termek.akciosar/100)) : termek.ar} Ft</span>
+                    <span className='flex w-full text-center items-center justify-center'>{ Math.round(termek.akcios ? termek.ar-(termek.ar*(termek.akciosar/100)) : termek.ar)} Ft</span>
                 </div>
                 <div className='buy w-full'>
                     <Link to={"/info/"+termek.id} className='flex hover:font-bold hover:bg-stone-300 rounded-lg p-2 justify-center items-center bg-stone-200 w-full font-medium'>Vásárlás</Link>

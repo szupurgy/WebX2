@@ -90,14 +90,6 @@ const Panel = () => {
             </div>
             <div className='ring-2 ring-gray-600 bg-gray-800 flex flex-col justify-center items-center rounded w-40 h-40'>
                 <div className=''>
-                    <h1 className='text-stone-400'>Legeladottabb termék</h1>
-                </div>
-                <div>
-                    <h1 className='text-white'>Iphone 13 pro max</h1>
-                </div>
-            </div>
-            <div className='ring-2 ring-gray-600 bg-gray-800 flex flex-col justify-center items-center rounded w-40 h-40'>
-                <div className=''>
                     <h1 className='text-stone-400'>Legújabb termék</h1>
                 </div>
                 <div>
