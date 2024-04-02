@@ -7,7 +7,7 @@ const TermekCard = ({termek}) => {
         <>
             <div className='main hover:scale-95 transition flex flex-col p-5 gap-5 rounded-2xl md:ml-8 md:pb-10 drop sm:w-1/2 md:size-80 md:gap-1 size-11/12 shadow-2xl justify-center items-center bg-gradient-to-t from-stone-500'>
                 <div className={`w-full ${termek.akcios ? "": "hidden"} `}>
-                    <AiOutlinePercentage title='Akciós' className='absolute size-10 hover:animate-pulse flex justify-end items-end' />
+                    <AiOutlinePercentage title='Akciós' className='absolute z-50 size-10 hover:animate-pulse flex justify-end items-end' />
                 </div>
                 <div className='kep'>
                     <img src={`http://localhost:8000/uploads/${termek.termekkepek[0].kep}`} className='size-60 md:size-40 rounded-xl hover:scale-110 transition drop-shadow-2xl' />
