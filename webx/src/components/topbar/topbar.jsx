@@ -52,9 +52,7 @@ const TopBar = () => {
             }
           </ul>
         </div>
-
       </div>
-      
     </>
   )
 }

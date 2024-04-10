@@ -48,7 +48,6 @@ const TelSzulIn = ({ prevStep, nextStep, handleChange, values }) => {
                     toast.error("Váratlan hiba!");
                 }
             })
-        //Continue();
     }
     return (
         <>

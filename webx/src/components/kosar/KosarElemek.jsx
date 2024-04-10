@@ -42,7 +42,9 @@ const KosarElem = ({ termek, index }) => {
                 <div className='flex p-3'>
                     <img src={`http://localhost:8000/uploads/${termek.termekkepek[0].kep}`} className='size-40' />
                     <div className='flex flex-col'>
-                        <h2 className='px-5 pt-5 justify-between text-4xl text-indigo-800 font-bold'>{Math.round(termek?.akcios ? (termek.ar-(termek.ar * (termek.akciosar / 100))) * termek.darab : (termek.ar) * termek.darab)} Ft</h2>
+                        <h2 className='px-5 pt-5 justify-between text-4xl text-indigo-800 font-bold'>
+                            {Math.round(termek?.akcios ? (termek.ar-(termek.ar * (termek.akciosar / 100))) * termek.darab : (termek.ar) * termek.darab)} Ft
+                        </h2>
                         <h2 className='px-5'><span className='font-bold'>Garancia:</span> 12hónap</h2>
                         <h2 className='px-5'><span className='font-bold'>Értékelés:</span> 84% pozitív</h2>
                     </div>
